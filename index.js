@@ -1,7 +1,3 @@
-const div = (strings, ...args) =>
-  strings.reduce((acc, curr, index) => acc + curr + (args[index] || ""), "");
+const User = require("./user");
 
-const color = "blue";
-const red = "red";
-
-console.log(div`lol ${color} hahah ${red}`);
+console.log(User({ name: "Marvin" }));
