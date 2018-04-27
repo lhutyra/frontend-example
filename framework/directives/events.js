@@ -1,5 +1,5 @@
 export const createEventHandlerFor = name => f => ({
-  type: name,
+  type: "event",
   event: { [name]: f }
 });
 

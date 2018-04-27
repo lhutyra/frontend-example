@@ -1,4 +1,4 @@
 import { initApplication } from "./framework";
-import { User } from "./user";
+import { User } from "./src/user";
 
 initApplication("#app", User());

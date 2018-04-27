@@ -1,7 +1,7 @@
 import h from "snabbdom/h";
 
 const actionHandlers = {
-  className: (state, templateString, newElement) => ({
+  directive: (state, templateString, newElement) => ({
     ...state,
     children: [...state.children, templateString],
     className: { ...state.className, ...newElement.className }
@@ -24,18 +24,8 @@ const actionHandlers = {
 const elementReducer = (args, elementName) => (acc, templateString, index) => {
   const currentArg = args[index];
 
-  if (currentArg) {
-    if (currentArg.event) {
-      return actionHandlers.event(acc, templateString, currentArg);
-    }
-
-    if (currentArg.className) {
-      return actionHandlers.className(acc, templateString, currentArg);
-    }
-
-    if (currentArg.element) {
-      return actionHandlers.element(acc, templateString, currentArg);
-    }
+  if (currentArg && currentArg.type) {
+    return actionHandlers[currentArg.type](acc, templateString, currentArg);
   }
 
   return actionHandlers.text(acc, templateString, currentArg);
@@ -52,7 +42,7 @@ const createElement = elementName => (strings, ...args) => {
   );
 
   return {
-    type: elementName,
+    type: "element",
     element: h(elementName, { on: events, class: className }, children)
   };
 };

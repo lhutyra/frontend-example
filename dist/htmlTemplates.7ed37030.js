@@ -627,7 +627,7 @@ function vnode(sel, data, children, text, elm) {
 exports.vnode = vnode;
 exports.default = vnode;
 //# sourceMappingURL=vnode.js.map
-},{}],32:[function(require,module,exports) {
+},{}],31:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function createElement(tagName) {
@@ -694,7 +694,7 @@ exports.htmlDomApi = {
 };
 exports.default = exports.htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
-},{}],22:[function(require,module,exports) {
+},{}],21:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = require("./vnode");
@@ -739,7 +739,7 @@ function toVNode(node, domApi) {
 exports.toVNode = toVNode;
 exports.default = toVNode;
 //# sourceMappingURL=tovnode.js.map
-},{"./vnode":30,"./htmldomapi":32}],23:[function(require,module,exports) {
+},{"./vnode":30,"./htmldomapi":31}],22:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function invokeHandler(handler, vnode, event) {
@@ -835,7 +835,7 @@ exports.eventListenersModule = {
 };
 exports.default = exports.eventListenersModule;
 //# sourceMappingURL=eventlisteners.js.map
-},{}],24:[function(require,module,exports) {
+},{}],23:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function updateClass(oldVnode, vnode) {
@@ -861,7 +861,94 @@ function updateClass(oldVnode, vnode) {
 exports.classModule = { create: updateClass, update: updateClass };
 exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
-},{}],14:[function(require,module,exports) {
+},{}],48:[function(require,module,exports) {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var raf = (typeof window !== 'undefined' && window.requestAnimationFrame) || setTimeout;
+var nextFrame = function (fn) { raf(function () { raf(fn); }); };
+function setNextFrame(obj, prop, val) {
+    nextFrame(function () { obj[prop] = val; });
+}
+function updateStyle(oldVnode, vnode) {
+    var cur, name, elm = vnode.elm, oldStyle = oldVnode.data.style, style = vnode.data.style;
+    if (!oldStyle && !style)
+        return;
+    if (oldStyle === style)
+        return;
+    oldStyle = oldStyle || {};
+    style = style || {};
+    var oldHasDel = 'delayed' in oldStyle;
+    for (name in oldStyle) {
+        if (!style[name]) {
+            if (name[0] === '-' && name[1] === '-') {
+                elm.style.removeProperty(name);
+            }
+            else {
+                elm.style[name] = '';
+            }
+        }
+    }
+    for (name in style) {
+        cur = style[name];
+        if (name === 'delayed' && style.delayed) {
+            for (var name2 in style.delayed) {
+                cur = style.delayed[name2];
+                if (!oldHasDel || cur !== oldStyle.delayed[name2]) {
+                    setNextFrame(elm.style, name2, cur);
+                }
+            }
+        }
+        else if (name !== 'remove' && cur !== oldStyle[name]) {
+            if (name[0] === '-' && name[1] === '-') {
+                elm.style.setProperty(name, cur);
+            }
+            else {
+                elm.style[name] = cur;
+            }
+        }
+    }
+}
+function applyDestroyStyle(vnode) {
+    var style, name, elm = vnode.elm, s = vnode.data.style;
+    if (!s || !(style = s.destroy))
+        return;
+    for (name in style) {
+        elm.style[name] = style[name];
+    }
+}
+function applyRemoveStyle(vnode, rm) {
+    var s = vnode.data.style;
+    if (!s || !s.remove) {
+        rm();
+        return;
+    }
+    var name, elm = vnode.elm, i = 0, compStyle, style = s.remove, amount = 0, applied = [];
+    for (name in style) {
+        applied.push(name);
+        elm.style[name] = style[name];
+    }
+    compStyle = getComputedStyle(elm);
+    var props = compStyle['transition-property'].split(', ');
+    for (; i < props.length; ++i) {
+        if (applied.indexOf(props[i]) !== -1)
+            amount++;
+    }
+    elm.addEventListener('transitionend', function (ev) {
+        if (ev.target === elm)
+            --amount;
+        if (amount === 0)
+            rm();
+    });
+}
+exports.styleModule = {
+    create: updateStyle,
+    update: updateStyle,
+    destroy: applyDestroyStyle,
+    remove: applyRemoveStyle
+};
+exports.default = exports.styleModule;
+//# sourceMappingURL=style.js.map
+},{}],11:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -881,13 +968,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var patch = exports.patch = snabbdom.init([require("snabbdom/modules/eventlisteners").default, require("snabbdom/modules/class").default // attaches event listeners
+var patch = exports.patch = snabbdom.init([require("snabbdom/modules/eventlisteners").default, require("snabbdom/modules/class").default, require("snabbdom/modules/style").default // attaches event listeners
 ]);
 
 var initApplication = exports.initApplication = function initApplication(selector, vNode) {
   return patch((0, _tovnode2.default)(document.querySelector(selector)), vNode.element);
 };
-},{"snabbdom":20,"snabbdom/tovnode":22,"snabbdom/modules/eventlisteners":23,"snabbdom/modules/class":24}],10:[function(require,module,exports) {
+},{"snabbdom":20,"snabbdom/tovnode":21,"snabbdom/modules/eventlisteners":22,"snabbdom/modules/class":23,"snabbdom/modules/style":48}],10:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -929,7 +1016,7 @@ var createComponent = exports.createComponent = function createComponent(node, d
     return previous;
   };
 };
-},{"./vDom":14}],11:[function(require,module,exports) {
+},{"./vDom":11}],12:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -941,7 +1028,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var createEventHandlerFor = exports.createEventHandlerFor = function createEventHandlerFor(name) {
   return function (f) {
     return {
-      type: name,
+      type: "event",
       event: _defineProperty({}, name, f)
     };
   };
@@ -962,13 +1049,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var createEventHandlerFor = exports.createEventHandlerFor = function createEventHandlerFor(name) {
   return function (props) {
     return _defineProperty({
-      type: name
+      type: "directive"
     }, name, _extends({}, props));
   };
 };
 
 var className = exports.className = createEventHandlerFor("className");
-},{}],31:[function(require,module,exports) {
+var style = exports.style = createEventHandlerFor("style");
+},{}],32:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.array = Array.isArray;
@@ -977,7 +1065,7 @@ function primitive(s) {
 }
 exports.primitive = primitive;
 //# sourceMappingURL=is.js.map
-},{}],21:[function(require,module,exports) {
+},{}],24:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = require("./vnode");
@@ -1037,7 +1125,7 @@ exports.h = h;
 ;
 exports.default = h;
 //# sourceMappingURL=h.js.map
-},{"./vnode":30,"./is":31}],12:[function(require,module,exports) {
+},{"./vnode":30,"./is":32}],14:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1056,7 +1144,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var actionHandlers = {
-  className: function className(state, templateString, newElement) {
+  directive: function directive(state, templateString, newElement) {
     return _extends({}, state, {
       children: [].concat(_toConsumableArray(state.children), [templateString]),
       className: _extends({}, state.className, newElement.className)
@@ -1084,18 +1172,8 @@ var elementReducer = function elementReducer(args, elementName) {
   return function (acc, templateString, index) {
     var currentArg = args[index];
 
-    if (currentArg) {
-      if (currentArg.event) {
-        return actionHandlers.event(acc, templateString, currentArg);
-      }
-
-      if (currentArg.className) {
-        return actionHandlers.className(acc, templateString, currentArg);
-      }
-
-      if (currentArg.element) {
-        return actionHandlers.element(acc, templateString, currentArg);
-      }
+    if (currentArg && currentArg.type) {
+      return actionHandlers[currentArg.type](acc, templateString, currentArg);
     }
 
     return actionHandlers.text(acc, templateString, currentArg);
@@ -1118,7 +1196,7 @@ var createElement = function createElement(elementName) {
         className = _strings$reduce.className;
 
     return {
-      type: elementName,
+      type: "element",
       element: (0, _h2.default)(elementName, { on: events, class: className }, children)
     };
   };
@@ -1129,7 +1207,7 @@ var h1 = exports.h1 = createElement("h1");
 var h2 = exports.h2 = createElement("h2");
 var span = exports.span = createElement("span");
 var button = exports.button = createElement("button");
-},{"snabbdom/h":21}],8:[function(require,module,exports) {
+},{"snabbdom/h":24}],8:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1156,7 +1234,7 @@ exports.h1 = _element.h1;
 exports.h2 = _element.h2;
 exports.button = _element.button;
 exports.span = _element.span;
-},{"./core/component":10,"./core/vDom":14,"./directives/events":11,"./directives/directives":13,"./elements/element":12}],6:[function(require,module,exports) {
+},{"./core/component":10,"./core/vDom":11,"./directives/events":12,"./directives/directives":13,"./elements/element":14}],6:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1166,15 +1244,15 @@ exports.User = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _templateObject = _taggedTemplateLiteral(["\n", "\n", "\n\n", "\n"], ["\n", "\n", "\n\n", "\n"]),
+var _templateObject = _taggedTemplateLiteral(["\n  ", "\n  ", "\n\n  ", "\n  "], ["\n  ", "\n  ", "\n\n  ", "\n  "]),
     _templateObject2 = _taggedTemplateLiteral(["This is the page title"], ["This is the page title"]),
     _templateObject3 = _taggedTemplateLiteral(["This is the page subtitle ", ""], ["This is the page subtitle ", ""]),
-    _templateObject4 = _taggedTemplateLiteral(["\n    ", "\n    ", "\n    ", "\n  "], ["\n    ", "\n    ", "\n    ", "\n  "]),
+    _templateObject4 = _taggedTemplateLiteral(["\n      ", "\n      ", "\n      ", "\n    "], ["\n      ", "\n      ", "\n      ", "\n    "]),
     _templateObject5 = _taggedTemplateLiteral(["This is a div ", ""], ["This is a div ", ""]),
     _templateObject6 = _taggedTemplateLiteral(["With its children on h2"], ["With its children on h2"]),
     _templateObject7 = _taggedTemplateLiteral(["Click me ", ""], ["Click me ", ""]);
 
-var _framework = require("./framework");
+var _framework = require("../framework");
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
@@ -1198,15 +1276,15 @@ var actions = {
 };
 
 var User = exports.User = (0, _framework.createComponent)(template, state, actions);
-},{"./framework":8}],4:[function(require,module,exports) {
+},{"../framework":8}],4:[function(require,module,exports) {
 "use strict";
 
 var _framework = require("./framework");
 
-var _user = require("./user");
+var _user = require("./src/user");
 
 (0, _framework.initApplication)("#app", (0, _user.User)());
-},{"./framework":8,"./user":6}],49:[function(require,module,exports) {
+},{"./framework":8,"./src/user":6}],46:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1236,7 +1314,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49903' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '53089' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -1375,5 +1453,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[49,4])
+},{}]},{},[46,4])
 //# sourceMappingURL=/htmlTemplates.7ed37030.map
