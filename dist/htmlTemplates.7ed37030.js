@@ -1081,10 +1081,10 @@ exports.User = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _templateObject = _taggedTemplateLiteral(["\n    ", "\n    ", "\n\n    ", "\n    "], ["\n    ", "\n    ", "\n\n    ", "\n    "]),
+var _templateObject = _taggedTemplateLiteral(["\n", "\n", "\n\n", "\n"], ["\n", "\n", "\n\n", "\n"]),
     _templateObject2 = _taggedTemplateLiteral(["This is the page title"], ["This is the page title"]),
     _templateObject3 = _taggedTemplateLiteral(["This is the page subtitle ", ""], ["This is the page subtitle ", ""]),
-    _templateObject4 = _taggedTemplateLiteral(["\n        ", "\n        ", "\n        ", "\n      "], ["\n        ", "\n        ", "\n        ", "\n      "]),
+    _templateObject4 = _taggedTemplateLiteral(["\n    ", "\n    ", "\n    ", "\n  "], ["\n    ", "\n    ", "\n    ", "\n  "]),
     _templateObject5 = _taggedTemplateLiteral(["This is a div"], ["This is a div"]),
     _templateObject6 = _taggedTemplateLiteral(["With its children on h2"], ["With its children on h2"]),
     _templateObject7 = _taggedTemplateLiteral(["Click me ", ""], ["Click me ", ""]);
@@ -1093,6 +1093,14 @@ var _framework = require("./framework");
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+var template = function template(_ref) {
+  var name = _ref.name,
+      actions = _ref.actions;
+  return (0, _framework.div)(_templateObject, (0, _framework.h1)(_templateObject2), (0, _framework.h2)(_templateObject3, name), (0, _framework.div)(_templateObject4, (0, _framework.span)(_templateObject5), (0, _framework.h2)(_templateObject6), (0, _framework.button)(_templateObject7, (0, _framework.onClick)(actions.changeName))));
+};
+
+var state = { name: "Jack" };
+
 var actions = {
   changeName: function changeName(state) {
     return _extends({}, state, {
@@ -1100,13 +1108,8 @@ var actions = {
     });
   }
 };
-var defaultState = { name: "Jack" };
 
-var User = exports.User = (0, _framework.createComponent)(function (_ref) {
-  var name = _ref.name,
-      actions = _ref.actions;
-  return (0, _framework.div)(_templateObject, (0, _framework.h1)(_templateObject2), (0, _framework.h2)(_templateObject3, name), (0, _framework.div)(_templateObject4, (0, _framework.span)(_templateObject5), (0, _framework.h2)(_templateObject6), (0, _framework.button)(_templateObject7, (0, _framework.onClick)(actions.changeName))));
-}, defaultState, actions);
+var User = exports.User = (0, _framework.createComponent)(template, state, actions);
 },{"./framework":57}],4:[function(require,module,exports) {
 "use strict";
 
@@ -1115,7 +1118,7 @@ var _framework = require("./framework");
 var _user = require("./user");
 
 (0, _framework.initApplication)("#app", (0, _user.User)());
-},{"./framework":57,"./user":6}],62:[function(require,module,exports) {
+},{"./framework":57,"./user":6}],63:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1284,5 +1287,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[62,4])
+},{}]},{},[63,4])
 //# sourceMappingURL=/htmlTemplates.7ed37030.map
