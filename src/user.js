@@ -8,10 +8,9 @@ const actions = {
     name: state.name === "Marvin" ? "Thomas" : "Marvin"
   })
 };
-
 const template = ({ name, actions }) =>
   _.div`
-    ${Navbar()}
+    ${Navbar({ title: "Super website" })}
     ${_.h1`This is the page title`}
     ${_.h2`This is the page subtitle ${name}`}
     ${_.div`

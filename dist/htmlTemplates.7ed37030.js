@@ -1633,8 +1633,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Navbar = undefined;
 
-var _templateObject = _taggedTemplateLiteral(["\n\t", "\n  "], ["\n\t", "\n  "]),
-    _templateObject2 = _taggedTemplateLiteral(["", " ", ""], ["", " ", ""]);
+var _templateObject = _taggedTemplateLiteral(["\n\t", "\n\t", "\n  "], ["\n\t", "\n\t", "\n  "]),
+    _templateObject2 = _taggedTemplateLiteral(["", ""], ["", ""]),
+    _templateObject3 = _taggedTemplateLiteral(["", " ", ""], ["", " ", ""]);
 
 var _framework = require("../framework");
 
@@ -1644,16 +1645,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var state = {
-  items: ["Marvin", "Frachet"]
-};
+var state = { items: ["Marvin", "Frachet"] };
 var actions = {};
-
 var template = function template(_ref) {
   var items = _ref.items,
-      actions = _ref.actions;
-  return _framework2.default.div(_templateObject, _framework2.default.forEach(items, function (item) {
-    return _framework2.default.a(_templateObject2, item, _framework2.default.props({ href: item }));
+      title = _ref.title;
+  return _framework2.default.div(_templateObject, _framework2.default.h1(_templateObject2, title), _framework2.default.forEach(items, function (item) {
+    return _framework2.default.a(_templateObject3, item, _framework2.default.props({ href: item }));
   }));
 };
 
@@ -1694,11 +1692,10 @@ var actions = {
     });
   }
 };
-
 var template = function template(_ref) {
   var name = _ref.name,
       actions = _ref.actions;
-  return _framework2.default.div(_templateObject, (0, _navbar.Navbar)(), _framework2.default.h1(_templateObject2), _framework2.default.h2(_templateObject3, name), _framework2.default.div(_templateObject4, _framework2.default.span(_templateObject5, _framework2.default.style({
+  return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: "Super website" }), _framework2.default.h1(_templateObject2), _framework2.default.h2(_templateObject3, name), _framework2.default.div(_templateObject4, _framework2.default.span(_templateObject5, _framework2.default.style({
     backgroundColor: name === "Marvin" ? "blue" : "red"
   })), _framework2.default.h2(_templateObject6), _framework2.default.button(_templateObject7, _framework2.default.onClick(actions.changeName))));
 };
@@ -1716,7 +1713,7 @@ var _user = require("./src/user");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _framework2.default.initApplication("#app", (0, _user.User)());
-},{"./framework":8,"./src/user":6}],59:[function(require,module,exports) {
+},{"./framework":8,"./src/user":6}],61:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1885,5 +1882,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[59,4])
+},{}]},{},[61,4])
 //# sourceMappingURL=/htmlTemplates.7ed37030.map
