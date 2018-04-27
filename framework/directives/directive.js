@@ -1,4 +1,6 @@
-export const createDirective = name => f => ({
+export const createEventHandlerFor = name => f => ({
   type: name,
-  directive: { [name]: f }
+  event: { [name]: f }
 });
+
+export const onClick = createEventHandlerFor("click");

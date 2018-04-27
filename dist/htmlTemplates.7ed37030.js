@@ -77,7 +77,7 @@ parcelRequire = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({32:[function(require,module,exports) {
+})({26:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91,7 +91,7 @@ function vnode(sel, data, children, text, elm) {
 }
 exports.default = vnode;
 //# sourceMappingURL=vnode.js.map
-},{}],33:[function(require,module,exports) {
+},{}],27:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -103,7 +103,7 @@ function primitive(s) {
     return typeof s === 'string' || typeof s === 'number';
 }
 //# sourceMappingURL=is.js.map
-},{}],34:[function(require,module,exports) {
+},{}],28:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -173,7 +173,7 @@ var htmlDomApi = exports.htmlDomApi = {
 };
 exports.default = htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
-},{}],35:[function(require,module,exports) {
+},{}],29:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -238,7 +238,7 @@ function h(sel, b, c) {
 ;
 exports.default = h;
 //# sourceMappingURL=h.js.map
-},{"./vnode":32,"./is":33}],36:[function(require,module,exports) {
+},{"./vnode":26,"./is":27}],30:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -295,7 +295,7 @@ var thunk = exports.thunk = function thunk(sel, key, fn, args) {
 };
 exports.default = thunk;
 //# sourceMappingURL=thunk.js.map
-},{"./h":35}],14:[function(require,module,exports) {
+},{"./h":29}],14:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -616,7 +616,7 @@ function init(modules, domApi) {
     };
 }
 //# sourceMappingURL=snabbdom.js.map
-},{"./vnode":32,"./is":33,"./htmldomapi":34,"./h":35,"./thunk":36}],28:[function(require,module,exports) {
+},{"./vnode":26,"./is":27,"./htmldomapi":28,"./h":29,"./thunk":30}],22:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function vnode(sel, data, children, text, elm) {
@@ -627,7 +627,7 @@ function vnode(sel, data, children, text, elm) {
 exports.vnode = vnode;
 exports.default = vnode;
 //# sourceMappingURL=vnode.js.map
-},{}],29:[function(require,module,exports) {
+},{}],23:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function createElement(tagName) {
@@ -739,147 +739,7 @@ function toVNode(node, domApi) {
 exports.toVNode = toVNode;
 exports.default = toVNode;
 //# sourceMappingURL=tovnode.js.map
-},{"./vnode":28,"./htmldomapi":29}],16:[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function updateClass(oldVnode, vnode) {
-    var cur, name, elm = vnode.elm, oldClass = oldVnode.data.class, klass = vnode.data.class;
-    if (!oldClass && !klass)
-        return;
-    if (oldClass === klass)
-        return;
-    oldClass = oldClass || {};
-    klass = klass || {};
-    for (name in oldClass) {
-        if (!klass[name]) {
-            elm.classList.remove(name);
-        }
-    }
-    for (name in klass) {
-        cur = klass[name];
-        if (cur !== oldClass[name]) {
-            elm.classList[cur ? 'add' : 'remove'](name);
-        }
-    }
-}
-exports.classModule = { create: updateClass, update: updateClass };
-exports.default = exports.classModule;
-//# sourceMappingURL=class.js.map
-},{}],17:[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-function updateProps(oldVnode, vnode) {
-    var key, cur, old, elm = vnode.elm, oldProps = oldVnode.data.props, props = vnode.data.props;
-    if (!oldProps && !props)
-        return;
-    if (oldProps === props)
-        return;
-    oldProps = oldProps || {};
-    props = props || {};
-    for (key in oldProps) {
-        if (!props[key]) {
-            delete elm[key];
-        }
-    }
-    for (key in props) {
-        cur = props[key];
-        old = oldProps[key];
-        if (old !== cur && (key !== 'value' || elm[key] !== cur)) {
-            elm[key] = cur;
-        }
-    }
-}
-exports.propsModule = { create: updateProps, update: updateProps };
-exports.default = exports.propsModule;
-//# sourceMappingURL=props.js.map
-},{}],18:[function(require,module,exports) {
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-var raf = (typeof window !== 'undefined' && window.requestAnimationFrame) || setTimeout;
-var nextFrame = function (fn) { raf(function () { raf(fn); }); };
-function setNextFrame(obj, prop, val) {
-    nextFrame(function () { obj[prop] = val; });
-}
-function updateStyle(oldVnode, vnode) {
-    var cur, name, elm = vnode.elm, oldStyle = oldVnode.data.style, style = vnode.data.style;
-    if (!oldStyle && !style)
-        return;
-    if (oldStyle === style)
-        return;
-    oldStyle = oldStyle || {};
-    style = style || {};
-    var oldHasDel = 'delayed' in oldStyle;
-    for (name in oldStyle) {
-        if (!style[name]) {
-            if (name[0] === '-' && name[1] === '-') {
-                elm.style.removeProperty(name);
-            }
-            else {
-                elm.style[name] = '';
-            }
-        }
-    }
-    for (name in style) {
-        cur = style[name];
-        if (name === 'delayed' && style.delayed) {
-            for (var name2 in style.delayed) {
-                cur = style.delayed[name2];
-                if (!oldHasDel || cur !== oldStyle.delayed[name2]) {
-                    setNextFrame(elm.style, name2, cur);
-                }
-            }
-        }
-        else if (name !== 'remove' && cur !== oldStyle[name]) {
-            if (name[0] === '-' && name[1] === '-') {
-                elm.style.setProperty(name, cur);
-            }
-            else {
-                elm.style[name] = cur;
-            }
-        }
-    }
-}
-function applyDestroyStyle(vnode) {
-    var style, name, elm = vnode.elm, s = vnode.data.style;
-    if (!s || !(style = s.destroy))
-        return;
-    for (name in style) {
-        elm.style[name] = style[name];
-    }
-}
-function applyRemoveStyle(vnode, rm) {
-    var s = vnode.data.style;
-    if (!s || !s.remove) {
-        rm();
-        return;
-    }
-    var name, elm = vnode.elm, i = 0, compStyle, style = s.remove, amount = 0, applied = [];
-    for (name in style) {
-        applied.push(name);
-        elm.style[name] = style[name];
-    }
-    compStyle = getComputedStyle(elm);
-    var props = compStyle['transition-property'].split(', ');
-    for (; i < props.length; ++i) {
-        if (applied.indexOf(props[i]) !== -1)
-            amount++;
-    }
-    elm.addEventListener('transitionend', function (ev) {
-        if (ev.target === elm)
-            --amount;
-        if (amount === 0)
-            rm();
-    });
-}
-exports.styleModule = {
-    create: updateStyle,
-    update: updateStyle,
-    destroy: applyDestroyStyle,
-    remove: applyRemoveStyle
-};
-exports.default = exports.styleModule;
-//# sourceMappingURL=style.js.map
-},{}],19:[function(require,module,exports) {
+},{"./vnode":22,"./htmldomapi":23}],16:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function invokeHandler(handler, vnode, event) {
@@ -995,18 +855,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-var patch = exports.patch = snabbdom.init([
-// Init patch function with chosen modules
-require("snabbdom/modules/class").default, // makes it easy to toggle classes
-require("snabbdom/modules/props").default, // for setting properties on DOM elements
-require("snabbdom/modules/style").default, // handles styling on elements with support for animations
-require("snabbdom/modules/eventlisteners").default // attaches event listeners
+var patch = exports.patch = snabbdom.init([require("snabbdom/modules/eventlisteners").default // attaches event listeners
 ]);
 
 var initApplication = exports.initApplication = function initApplication(selector, vNode) {
-  return patch((0, _tovnode2.default)(document.querySelector(selector)), vNode);
+  return patch((0, _tovnode2.default)(document.querySelector(selector)), vNode.element);
 };
-},{"snabbdom":14,"snabbdom/tovnode":15,"snabbdom/modules/class":16,"snabbdom/modules/props":17,"snabbdom/modules/style":18,"snabbdom/modules/eventlisteners":19}],42:[function(require,module,exports) {
+},{"snabbdom":14,"snabbdom/tovnode":15,"snabbdom/modules/eventlisteners":16}],36:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.array = Array.isArray;
@@ -1015,7 +870,7 @@ function primitive(s) {
 }
 exports.primitive = primitive;
 //# sourceMappingURL=is.js.map
-},{}],26:[function(require,module,exports) {
+},{}],20:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = require("./vnode");
@@ -1075,13 +930,346 @@ exports.h = h;
 ;
 exports.default = h;
 //# sourceMappingURL=h.js.map
-},{"./vnode":28,"./is":42}],10:[function(require,module,exports) {
+},{"./vnode":22,"./is":36}],41:[function(require,module,exports) {
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+function EventEmitter() {
+  this._events = this._events || {};
+  this._maxListeners = this._maxListeners || undefined;
+}
+module.exports = EventEmitter;
+
+// Backwards-compat with node 0.10.x
+EventEmitter.EventEmitter = EventEmitter;
+
+EventEmitter.prototype._events = undefined;
+EventEmitter.prototype._maxListeners = undefined;
+
+// By default EventEmitters will print a warning if more than 10 listeners are
+// added to it. This is a useful default which helps finding memory leaks.
+EventEmitter.defaultMaxListeners = 10;
+
+// Obviously not all Emitters should be limited to 10. This function allows
+// that to be increased. Set to zero for unlimited.
+EventEmitter.prototype.setMaxListeners = function (n) {
+  if (!isNumber(n) || n < 0 || isNaN(n)) throw TypeError('n must be a positive number');
+  this._maxListeners = n;
+  return this;
+};
+
+EventEmitter.prototype.emit = function (type) {
+  var er, handler, len, args, i, listeners;
+
+  if (!this._events) this._events = {};
+
+  // If there is no 'error' event listener then throw.
+  if (type === 'error') {
+    if (!this._events.error || isObject(this._events.error) && !this._events.error.length) {
+      er = arguments[1];
+      if (er instanceof Error) {
+        throw er; // Unhandled 'error' event
+      } else {
+        // At least give some kind of context to the user
+        var err = new Error('Uncaught, unspecified "error" event. (' + er + ')');
+        err.context = er;
+        throw err;
+      }
+    }
+  }
+
+  handler = this._events[type];
+
+  if (isUndefined(handler)) return false;
+
+  if (isFunction(handler)) {
+    switch (arguments.length) {
+      // fast cases
+      case 1:
+        handler.call(this);
+        break;
+      case 2:
+        handler.call(this, arguments[1]);
+        break;
+      case 3:
+        handler.call(this, arguments[1], arguments[2]);
+        break;
+      // slower
+      default:
+        args = Array.prototype.slice.call(arguments, 1);
+        handler.apply(this, args);
+    }
+  } else if (isObject(handler)) {
+    args = Array.prototype.slice.call(arguments, 1);
+    listeners = handler.slice();
+    len = listeners.length;
+    for (i = 0; i < len; i++) listeners[i].apply(this, args);
+  }
+
+  return true;
+};
+
+EventEmitter.prototype.addListener = function (type, listener) {
+  var m;
+
+  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+  if (!this._events) this._events = {};
+
+  // To avoid recursion in the case that type === "newListener"! Before
+  // adding it to the listeners, first emit "newListener".
+  if (this._events.newListener) this.emit('newListener', type, isFunction(listener.listener) ? listener.listener : listener);
+
+  if (!this._events[type])
+    // Optimize the case of one listener. Don't need the extra array object.
+    this._events[type] = listener;else if (isObject(this._events[type]))
+    // If we've already got an array, just append.
+    this._events[type].push(listener);else
+    // Adding the second element, need to change to array.
+    this._events[type] = [this._events[type], listener];
+
+  // Check for listener leak
+  if (isObject(this._events[type]) && !this._events[type].warned) {
+    if (!isUndefined(this._maxListeners)) {
+      m = this._maxListeners;
+    } else {
+      m = EventEmitter.defaultMaxListeners;
+    }
+
+    if (m && m > 0 && this._events[type].length > m) {
+      this._events[type].warned = true;
+      console.error('(node) warning: possible EventEmitter memory ' + 'leak detected. %d listeners added. ' + 'Use emitter.setMaxListeners() to increase limit.', this._events[type].length);
+      if (typeof console.trace === 'function') {
+        // not supported in IE 10
+        console.trace();
+      }
+    }
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+
+EventEmitter.prototype.once = function (type, listener) {
+  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+  var fired = false;
+
+  function g() {
+    this.removeListener(type, g);
+
+    if (!fired) {
+      fired = true;
+      listener.apply(this, arguments);
+    }
+  }
+
+  g.listener = listener;
+  this.on(type, g);
+
+  return this;
+};
+
+// emits a 'removeListener' event iff the listener was removed
+EventEmitter.prototype.removeListener = function (type, listener) {
+  var list, position, length, i;
+
+  if (!isFunction(listener)) throw TypeError('listener must be a function');
+
+  if (!this._events || !this._events[type]) return this;
+
+  list = this._events[type];
+  length = list.length;
+  position = -1;
+
+  if (list === listener || isFunction(list.listener) && list.listener === listener) {
+    delete this._events[type];
+    if (this._events.removeListener) this.emit('removeListener', type, listener);
+  } else if (isObject(list)) {
+    for (i = length; i-- > 0;) {
+      if (list[i] === listener || list[i].listener && list[i].listener === listener) {
+        position = i;
+        break;
+      }
+    }
+
+    if (position < 0) return this;
+
+    if (list.length === 1) {
+      list.length = 0;
+      delete this._events[type];
+    } else {
+      list.splice(position, 1);
+    }
+
+    if (this._events.removeListener) this.emit('removeListener', type, listener);
+  }
+
+  return this;
+};
+
+EventEmitter.prototype.removeAllListeners = function (type) {
+  var key, listeners;
+
+  if (!this._events) return this;
+
+  // not listening for removeListener, no need to emit
+  if (!this._events.removeListener) {
+    if (arguments.length === 0) this._events = {};else if (this._events[type]) delete this._events[type];
+    return this;
+  }
+
+  // emit removeListener for all listeners on all events
+  if (arguments.length === 0) {
+    for (key in this._events) {
+      if (key === 'removeListener') continue;
+      this.removeAllListeners(key);
+    }
+    this.removeAllListeners('removeListener');
+    this._events = {};
+    return this;
+  }
+
+  listeners = this._events[type];
+
+  if (isFunction(listeners)) {
+    this.removeListener(type, listeners);
+  } else if (listeners) {
+    // LIFO order
+    while (listeners.length) this.removeListener(type, listeners[listeners.length - 1]);
+  }
+  delete this._events[type];
+
+  return this;
+};
+
+EventEmitter.prototype.listeners = function (type) {
+  var ret;
+  if (!this._events || !this._events[type]) ret = [];else if (isFunction(this._events[type])) ret = [this._events[type]];else ret = this._events[type].slice();
+  return ret;
+};
+
+EventEmitter.prototype.listenerCount = function (type) {
+  if (this._events) {
+    var evlistener = this._events[type];
+
+    if (isFunction(evlistener)) return 1;else if (evlistener) return evlistener.length;
+  }
+  return 0;
+};
+
+EventEmitter.listenerCount = function (emitter, type) {
+  return emitter.listenerCount(type);
+};
+
+function isFunction(arg) {
+  return typeof arg === 'function';
+}
+
+function isNumber(arg) {
+  return typeof arg === 'number';
+}
+
+function isObject(arg) {
+  return typeof arg === 'object' && arg !== null;
+}
+
+function isUndefined(arg) {
+  return arg === void 0;
+}
+},{}],40:[function(require,module,exports) {
+// This file should be ES5 compatible
+/* eslint prefer-spread:0, no-var:0, prefer-reflect:0, no-magic-numbers:0 */
+'use strict';
+
+module.exports = function () {
+	// Import Events
+	var events = require('events');
+
+	// Export Domain
+	var domain = {};
+	domain.createDomain = domain.create = function () {
+		var d = new events.EventEmitter();
+
+		function emitError(e) {
+			d.emit('error', e);
+		}
+
+		d.add = function (emitter) {
+			emitter.on('error', emitError);
+		};
+		d.remove = function (emitter) {
+			emitter.removeListener('error', emitError);
+		};
+		d.bind = function (fn) {
+			return function () {
+				var args = Array.prototype.slice.call(arguments);
+				try {
+					fn.apply(null, args);
+				} catch (err) {
+					emitError(err);
+				}
+			};
+		};
+		d.intercept = function (fn) {
+			return function (err) {
+				if (err) {
+					emitError(err);
+				} else {
+					var args = Array.prototype.slice.call(arguments, 1);
+					try {
+						fn.apply(null, args);
+					} catch (err) {
+						emitError(err);
+					}
+				}
+			};
+		};
+		d.run = function (fn) {
+			try {
+				fn();
+			} catch (err) {
+				emitError(err);
+			}
+			return this;
+		};
+		d.dispose = function () {
+			this.removeAllListeners();
+			return this;
+		};
+		d.enter = d.exit = function () {
+			return this;
+		};
+		return d;
+	};
+	return domain;
+}.call(this);
+},{"events":41}],10:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.div = undefined;
+exports.span = exports.h2 = exports.h1 = exports.div = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -1089,47 +1277,47 @@ var _h = require("snabbdom/h");
 
 var _h2 = _interopRequireDefault(_h);
 
+var _domain = require("domain");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var events = {
-  click: true
-};
-
-var isEvent = function isEvent(arg) {
-  return arg && events[arg.type];
-};
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var reducer = function reducer(args) {
   return function (acc, curr, index) {
     var currentArg = args[index];
-    if (isEvent(currentArg)) {
-      return _extends({}, acc, {
-        events: _extends({}, acc.events, currentArg.directive)
-      });
-    }
-    return _extends({}, acc, {
-      template: "" + acc.template + curr + (args[index] || "")
-    });
+
+    return {
+      events: currentArg && currentArg.event ? _extends({}, acc.events, currentArg.event) : acc.events,
+      children: [].concat(_toConsumableArray(acc.children), [currentArg && currentArg.element ? currentArg.element : "" + curr + (currentArg || "")])
+    };
   };
 };
 
-var div = exports.div = function div(strings) {
-  for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-    args[_key - 1] = arguments[_key];
-  }
+var createComponent = function createComponent(key) {
+  return function (strings) {
+    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      args[_key - 1] = arguments[_key];
+    }
 
-  var divReducer = reducer(args);
+    var elementReducer = reducer(args);
 
-  var _strings$reduce = strings.reduce(divReducer, {
-    template: "",
-    events: {}
-  }),
-      events = _strings$reduce.events,
-      template = _strings$reduce.template;
+    var _strings$reduce = strings.reduce(elementReducer, {
+      children: [],
+      events: {}
+    }),
+        events = _strings$reduce.events,
+        children = _strings$reduce.children;
 
-  return (0, _h2.default)("div", { on: events }, template);
+    return { type: key, element: (0, _h2.default)(key, { on: events }, children) };
+  };
 };
-},{"snabbdom/h":26}],49:[function(require,module,exports) {
+
+var div = exports.div = createComponent("div");
+var h1 = exports.h1 = createComponent("h1");
+var h2 = exports.h2 = createComponent("h2");
+var span = exports.span = createComponent("span");
+},{"snabbdom/h":20,"domain":40}],11:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1138,26 +1326,17 @@ Object.defineProperty(exports, "__esModule", {
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var createDirective = exports.createDirective = function createDirective(name) {
+var createEventHandlerFor = exports.createEventHandlerFor = function createEventHandlerFor(name) {
   return function (f) {
     return {
       type: name,
-      directive: _defineProperty({}, name, f)
+      event: _defineProperty({}, name, f)
     };
   };
 };
-},{}],11:[function(require,module,exports) {
-"use strict";
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.onClick = undefined;
-
-var _directive = require("./directive");
-
-var onClick = exports.onClick = (0, _directive.createDirective)("click");
-},{"./directive":49}],6:[function(require,module,exports) {
+var onClick = exports.onClick = createEventHandlerFor("click");
+},{}],6:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1165,30 +1344,33 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.User = undefined;
 
-var _templateObject = _taggedTemplateLiteral(["Hello ", " ", ""], ["Hello ", " ", ""]);
+var _templateObject = _taggedTemplateLiteral(["\n    ", "\n    ", "\n\n    ", "\n  "], ["\n    ", "\n    ", "\n\n    ", "\n  "]),
+    _templateObject2 = _taggedTemplateLiteral(["This is the page title"], ["This is the page title"]),
+    _templateObject3 = _taggedTemplateLiteral(["This is the page subtitle"], ["This is the page subtitle"]),
+    _templateObject4 = _taggedTemplateLiteral(["\n        ", "\n        ", "\n      "], ["\n        ", "\n        ", "\n      "]),
+    _templateObject5 = _taggedTemplateLiteral(["This is a div"], ["This is a div"]),
+    _templateObject6 = _taggedTemplateLiteral(["With its children on h2"], ["With its children on h2"]);
 
-var _div = require("./framework/templates/div");
+var _element = require("./framework/templates/element");
 
-var _onClick = require("./framework/directives/onClick");
+var _directive = require("./framework/directives/directive");
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var User = exports.User = function User(_ref) {
-  var name = _ref.name;
-  return (0, _div.div)(_templateObject, name, (0, _onClick.onClick)(function () {
-    return console.log(name);
-  }));
+  var _ref$name = _ref.name,
+      name = _ref$name === undefined ? "Jeff" : _ref$name;
+  return (0, _element.div)(_templateObject, (0, _element.h1)(_templateObject2), (0, _element.h2)(_templateObject3), (0, _element.div)(_templateObject4, (0, _element.span)(_templateObject5), (0, _element.h2)(_templateObject6)));
 };
-},{"./framework/templates/div":10,"./framework/directives/onClick":11}],4:[function(require,module,exports) {
+},{"./framework/templates/element":10,"./framework/directives/directive":11}],4:[function(require,module,exports) {
 "use strict";
 
 var _vDom = require("./framework/internals/vDom");
 
 var _user = require("./user");
 
-console.log((0, _user.User)({ name: "Marvin" }));
-(0, _vDom.initApplication)("#app", (0, _user.User)({ name: "Marvin" }));
-},{"./framework/internals/vDom":7,"./user":6}],50:[function(require,module,exports) {
+(0, _vDom.initApplication)("#app", (0, _user.User)({}));
+},{"./framework/internals/vDom":7,"./user":6}],46:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1218,7 +1400,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '60856' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '60800' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -1357,5 +1539,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[50,4])
+},{}]},{},[46,4])
 //# sourceMappingURL=/htmlTemplates.7ed37030.map
