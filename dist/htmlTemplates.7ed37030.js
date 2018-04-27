@@ -1147,13 +1147,15 @@ var actionHandlers = {
   directive: function directive(state, templateString, newElement) {
     return _extends({}, state, {
       children: [].concat(_toConsumableArray(state.children), [templateString]),
-      className: _extends({}, state.className, newElement.className)
+      props: _extends({}, state.props, {
+        class: _extends({}, state.props.class, newElement.className)
+      })
     });
   },
   event: function event(state, templateString, newElement) {
     return _extends({}, state, {
       children: [].concat(_toConsumableArray(state.children), [templateString]),
-      events: _extends({}, state.events, newElement.event)
+      props: _extends({}, state.props, { on: _extends({}, state.props.on, newElement.event) })
     });
   },
   element: function element(state, templateString, newElement) {
@@ -1171,12 +1173,9 @@ var actionHandlers = {
 var elementReducer = function elementReducer(args, elementName) {
   return function (acc, templateString, index) {
     var currentArg = args[index];
+    var type = currentArg && currentArg.type || "text";
 
-    if (currentArg && currentArg.type) {
-      return actionHandlers[currentArg.type](acc, templateString, currentArg);
-    }
-
-    return actionHandlers.text(acc, templateString, currentArg);
+    return actionHandlers[type](acc, templateString, currentArg);
   };
 };
 
@@ -1188,16 +1187,17 @@ var createElement = function createElement(elementName) {
 
     var _strings$reduce = strings.reduce(elementReducer(args, elementName), {
       children: [],
-      events: {},
-      className: {}
+      props: {
+        on: {},
+        class: {}
+      }
     }),
-        events = _strings$reduce.events,
-        children = _strings$reduce.children,
-        className = _strings$reduce.className;
+        props = _strings$reduce.props,
+        children = _strings$reduce.children;
 
     return {
       type: "element",
-      element: (0, _h2.default)(elementName, { on: events, class: className }, children)
+      element: (0, _h2.default)(elementName, props, children)
     };
   };
 };

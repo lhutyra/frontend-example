@@ -4,12 +4,15 @@ const actionHandlers = {
   directive: (state, templateString, newElement) => ({
     ...state,
     children: [...state.children, templateString],
-    className: { ...state.className, ...newElement.className }
+    props: {
+      ...state.props,
+      class: { ...state.props.class, ...newElement.className }
+    }
   }),
   event: (state, templateString, newElement) => ({
     ...state,
     children: [...state.children, templateString],
-    events: { ...state.events, ...newElement.event }
+    props: { ...state.props, on: { ...state.props.on, ...newElement.event } }
   }),
   element: (state, templateString, newElement) => ({
     ...state,
@@ -23,27 +26,26 @@ const actionHandlers = {
 
 const elementReducer = (args, elementName) => (acc, templateString, index) => {
   const currentArg = args[index];
+  const type = (currentArg && currentArg.type) || "text";
 
-  if (currentArg && currentArg.type) {
-    return actionHandlers[currentArg.type](acc, templateString, currentArg);
-  }
-
-  return actionHandlers.text(acc, templateString, currentArg);
+  return actionHandlers[type](acc, templateString, currentArg);
 };
 
 const createElement = elementName => (strings, ...args) => {
-  const { events, children, className } = strings.reduce(
+  const { props, children } = strings.reduce(
     elementReducer(args, elementName),
     {
       children: [],
-      events: {},
-      className: {}
+      props: {
+        on: {},
+        class: {}
+      }
     }
   );
 
   return {
     type: "element",
-    element: h(elementName, { on: events, class: className }, children)
+    element: h(elementName, props, children)
   };
 };
 
