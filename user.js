@@ -2,7 +2,7 @@ import { createComponent } from "./framework/core/component";
 import { div, h1, h2, span, button } from "./framework/templates/element";
 import { onClick } from "./framework/directives/directive";
 
-const actions = { changeName: state => console.log(state) };
+const actions = { changeName: state => ({ ...state, name: "Marvin" }) };
 const defaultState = { name: "Jack" };
 
 export const User = createComponent(

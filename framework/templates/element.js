@@ -1,5 +1,4 @@
 import h from "snabbdom/h";
-import { create } from "domain";
 
 const reducer = args => ({ events, children }, curr, index) => {
   const currentArg = args[index];
