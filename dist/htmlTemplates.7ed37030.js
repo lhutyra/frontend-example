@@ -1421,7 +1421,21 @@ var createAttribute = function createAttribute(name) {
 var className = exports.className = createAttribute("class");
 var style = exports.style = createAttribute("style");
 var props = exports.props = createAttribute("props");
-},{"domain":22}],38:[function(require,module,exports) {
+},{"domain":22}],60:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var forEach = exports.forEach = function forEach(list, handler) {
+  return {
+    type: "iterable",
+    element: list.map(function (item) {
+      return handler(item).element;
+    })
+  };
+};
+},{}],38:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.array = Array.isArray;
@@ -1533,6 +1547,11 @@ var actionHandlers = {
       children: [].concat(_toConsumableArray(state.children), [templateString, newElement.element])
     });
   },
+  iterable: function iterable(state, templateString, newElement) {
+    return _extends({}, state, {
+      children: [].concat(_toConsumableArray(state.children), [templateString], _toConsumableArray(newElement.element))
+    });
+  },
   text: function text(state, templateString, newElement) {
     return _extends({}, state, {
       children: [].concat(_toConsumableArray(state.children), ["" + (templateString || "") + (newElement || "")])
@@ -1587,6 +1606,8 @@ var _events = require("./directives/events");
 
 var _attributes = require("./directives/attributes");
 
+var _directives = require("./directives/directives");
+
 var _element = require("./elements/element");
 
 exports.default = {
@@ -1601,9 +1622,10 @@ exports.default = {
   span: _element.span,
   style: _attributes.style,
   a: _element.a,
-  props: _attributes.props
+  props: _attributes.props,
+  forEach: _directives.forEach
 };
-},{"./core/component":12,"./core/vDom":13,"./directives/events":14,"./directives/attributes":15,"./elements/element":16}],10:[function(require,module,exports) {
+},{"./core/component":12,"./core/vDom":13,"./directives/events":14,"./directives/attributes":15,"./directives/directives":60,"./elements/element":16}],10:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1612,7 +1634,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.Navbar = undefined;
 
 var _templateObject = _taggedTemplateLiteral(["\n\t", "\n  "], ["\n\t", "\n  "]),
-    _templateObject2 = _taggedTemplateLiteral(["check that ", ""], ["check that ", ""]);
+    _templateObject2 = _taggedTemplateLiteral(["", " ", ""], ["", " ", ""]);
 
 var _framework = require("../framework");
 
@@ -1622,8 +1644,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-console.log(_framework2.default);
-
 var state = {
   items: ["Marvin", "Frachet"]
 };
@@ -1632,7 +1652,9 @@ var actions = {};
 var template = function template(_ref) {
   var items = _ref.items,
       actions = _ref.actions;
-  return _framework2.default.div(_templateObject, _framework2.default.a(_templateObject2, _framework2.default.props({ href: "https://google.com" })));
+  return _framework2.default.div(_templateObject, _framework2.default.forEach(items, function (item) {
+    return _framework2.default.a(_templateObject2, item, _framework2.default.props({ href: item }));
+  }));
 };
 
 var Navbar = exports.Navbar = _framework2.default.createComponent(template, state, actions);
@@ -1646,10 +1668,10 @@ exports.User = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _templateObject = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  ", "\n\n  ", "\n  "], ["\n  ", "\n  ", "\n  ", "\n\n  ", "\n  "]),
+var _templateObject = _taggedTemplateLiteral(["\n    ", "\n    ", "\n    ", "\n    ", "\n    "], ["\n    ", "\n    ", "\n    ", "\n    ", "\n    "]),
     _templateObject2 = _taggedTemplateLiteral(["This is the page title"], ["This is the page title"]),
     _templateObject3 = _taggedTemplateLiteral(["This is the page subtitle ", ""], ["This is the page subtitle ", ""]),
-    _templateObject4 = _taggedTemplateLiteral(["\n      ", "\n      ", "\n      ", "\n    "], ["\n      ", "\n      ", "\n      ", "\n    "]),
+    _templateObject4 = _taggedTemplateLiteral(["\n        ", "\n        ", "\n        ", "\n      "], ["\n        ", "\n        ", "\n        ", "\n      "]),
     _templateObject5 = _taggedTemplateLiteral(["This is a div ", ""], ["This is a div ", ""]),
     _templateObject6 = _taggedTemplateLiteral(["With its children on h2"], ["With its children on h2"]),
     _templateObject7 = _taggedTemplateLiteral(["Click me ", ""], ["Click me ", ""]);
@@ -1694,7 +1716,7 @@ var _user = require("./src/user");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _framework2.default.initApplication("#app", (0, _user.User)());
-},{"./framework":8,"./src/user":6}],55:[function(require,module,exports) {
+},{"./framework":8,"./src/user":6}],59:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1863,5 +1885,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[55,4])
+},{}]},{},[59,4])
 //# sourceMappingURL=/htmlTemplates.7ed37030.map

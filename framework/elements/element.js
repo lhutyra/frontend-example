@@ -26,6 +26,10 @@ const actionHandlers = {
     ...state,
     children: [...state.children, templateString, newElement.element]
   }),
+  iterable: (state, templateString, newElement) => ({
+    ...state,
+    children: [...state.children, templateString, ...newElement.element]
+  }),
   text: (state, templateString, newElement) => ({
     ...state,
     children: [...state.children, `${templateString || ""}${newElement || ""}`]
