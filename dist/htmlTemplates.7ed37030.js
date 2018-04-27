@@ -861,7 +861,37 @@ var patch = exports.patch = snabbdom.init([require("snabbdom/modules/eventlisten
 var initApplication = exports.initApplication = function initApplication(selector, vNode) {
   return patch((0, _tovnode2.default)(document.querySelector(selector)), vNode.element);
 };
-},{"snabbdom":14,"snabbdom/tovnode":15,"snabbdom/modules/eventlisteners":16}],38:[function(require,module,exports) {
+},{"snabbdom":14,"snabbdom/tovnode":15,"snabbdom/modules/eventlisteners":16}],46:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var createComponent = exports.createComponent = function createComponent(node, defaultState, actions) {
+  return function () {
+    var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    var state = defaultState;
+
+    var mappedActions = Object.keys(actions).reduce(function (acc, key) {
+      return _extends({}, acc, _defineProperty({}, key, function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        return actions[key].apply(actions, [state].concat(args));
+      }));
+    }, {});
+
+    return node(_extends({}, state, props, { actions: mappedActions }));
+  };
+};
+},{}],38:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.array = Array.isArray;
@@ -1348,7 +1378,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.User = undefined;
 
-var _templateObject = _taggedTemplateLiteral(["\n    ", "\n    ", "\n\n    ", "\n  "], ["\n    ", "\n    ", "\n\n    ", "\n  "]),
+var _templateObject = _taggedTemplateLiteral(["\n    ", "\n    ", "\n\n    ", "\n    "], ["\n    ", "\n    ", "\n\n    ", "\n    "]),
     _templateObject2 = _taggedTemplateLiteral(["This is the page title"], ["This is the page title"]),
     _templateObject3 = _taggedTemplateLiteral(["This is the page subtitle ", ""], ["This is the page subtitle ", ""]),
     _templateObject4 = _taggedTemplateLiteral(["\n        ", "\n        ", "\n        ", "\n      "], ["\n        ", "\n        ", "\n        ", "\n      "]),
@@ -1356,28 +1386,33 @@ var _templateObject = _taggedTemplateLiteral(["\n    ", "\n    ", "\n\n    ", "\
     _templateObject6 = _taggedTemplateLiteral(["With its children on h2"], ["With its children on h2"]),
     _templateObject7 = _taggedTemplateLiteral(["Click me ", ""], ["Click me ", ""]);
 
+var _component = require("./framework/core/component");
+
 var _element = require("./framework/templates/element");
 
 var _directive = require("./framework/directives/directive");
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var User = exports.User = function User(_ref) {
-  var _ref$name = _ref.name,
-      name = _ref$name === undefined ? "Jeff" : _ref$name;
-  return (0, _element.div)(_templateObject, (0, _element.h1)(_templateObject2), (0, _element.h2)(_templateObject3, name), (0, _element.div)(_templateObject4, (0, _element.span)(_templateObject5), (0, _element.h2)(_templateObject6), (0, _element.button)(_templateObject7, (0, _directive.onClick)(function () {
-    return console.log("baaam");
-  }))));
-};
-},{"./framework/templates/element":10,"./framework/directives/directive":11}],4:[function(require,module,exports) {
+var actions = { changeName: function changeName(state) {
+    return console.log(state);
+  } };
+var defaultState = { name: "Jack" };
+
+var User = exports.User = (0, _component.createComponent)(function (_ref) {
+  var name = _ref.name,
+      actions = _ref.actions;
+  return (0, _element.div)(_templateObject, (0, _element.h1)(_templateObject2), (0, _element.h2)(_templateObject3, name), (0, _element.div)(_templateObject4, (0, _element.span)(_templateObject5), (0, _element.h2)(_templateObject6), (0, _element.button)(_templateObject7, (0, _directive.onClick)(actions.changeName))));
+}, defaultState, actions);
+},{"./framework/core/component":46,"./framework/templates/element":10,"./framework/directives/directive":11}],4:[function(require,module,exports) {
 "use strict";
 
 var _vDom = require("./framework/internals/vDom");
 
 var _user = require("./user");
 
-(0, _vDom.initApplication)("#app", (0, _user.User)({}));
-},{"./framework/internals/vDom":7,"./user":6}],45:[function(require,module,exports) {
+(0, _vDom.initApplication)("#app", (0, _user.User)());
+},{"./framework/internals/vDom":7,"./user":6}],51:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1546,5 +1581,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[45,4])
+},{}]},{},[51,4])
 //# sourceMappingURL=/htmlTemplates.7ed37030.map
