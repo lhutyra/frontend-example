@@ -1,4 +1,4 @@
-import { initApplication } from "./framework/core/vDom";
+import { initApplication } from "./framework";
 import { User } from "./user";
 
 initApplication("#app", User());

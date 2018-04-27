@@ -903,7 +903,26 @@ var createComponent = exports.createComponent = function createComponent(node, d
     return previous;
   };
 };
-},{"./vDom":54}],38:[function(require,module,exports) {
+},{"./vDom":54}],11:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var createEventHandlerFor = exports.createEventHandlerFor = function createEventHandlerFor(name) {
+  return function (f) {
+    return {
+      type: name,
+      event: _defineProperty({}, name, f)
+    };
+  };
+};
+
+var onClick = exports.onClick = createEventHandlerFor("click");
+},{}],38:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.array = Array.isArray;
@@ -972,7 +991,7 @@ exports.h = h;
 ;
 exports.default = h;
 //# sourceMappingURL=h.js.map
-},{"./vnode":24,"./is":38}],10:[function(require,module,exports) {
+},{"./vnode":24,"./is":38}],58:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1028,26 +1047,31 @@ var h1 = exports.h1 = createComponent("h1");
 var h2 = exports.h2 = createComponent("h2");
 var span = exports.span = createComponent("span");
 var button = exports.button = createComponent("button");
-},{"snabbdom/h":22}],11:[function(require,module,exports) {
+},{"snabbdom/h":22}],57:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.span = exports.button = exports.h2 = exports.h1 = exports.div = exports.onClick = exports.initApplication = exports.createComponent = undefined;
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _component = require("./core/component");
 
-var createEventHandlerFor = exports.createEventHandlerFor = function createEventHandlerFor(name) {
-  return function (f) {
-    return {
-      type: name,
-      event: _defineProperty({}, name, f)
-    };
-  };
-};
+var _vDom = require("./core/vDom");
 
-var onClick = exports.onClick = createEventHandlerFor("click");
-},{}],6:[function(require,module,exports) {
+var _directive = require("./directives/directive");
+
+var _element = require("./elements/element");
+
+exports.createComponent = _component.createComponent;
+exports.initApplication = _vDom.initApplication;
+exports.onClick = _directive.onClick;
+exports.div = _element.div;
+exports.h1 = _element.h1;
+exports.h2 = _element.h2;
+exports.button = _element.button;
+exports.span = _element.span;
+},{"./core/component":46,"./core/vDom":54,"./directives/directive":11,"./elements/element":58}],6:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1065,33 +1089,33 @@ var _templateObject = _taggedTemplateLiteral(["\n    ", "\n    ", "\n\n    ", "\
     _templateObject6 = _taggedTemplateLiteral(["With its children on h2"], ["With its children on h2"]),
     _templateObject7 = _taggedTemplateLiteral(["Click me ", ""], ["Click me ", ""]);
 
-var _component = require("./framework/core/component");
-
-var _element = require("./framework/templates/element");
-
-var _directive = require("./framework/directives/directive");
+var _framework = require("./framework");
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var actions = { changeName: function changeName(state) {
-    return _extends({}, state, { name: "Marvin" });
-  } };
+var actions = {
+  changeName: function changeName(state) {
+    return _extends({}, state, {
+      name: state.name === "Marvin" ? "Thomas" : "Marvin"
+    });
+  }
+};
 var defaultState = { name: "Jack" };
 
-var User = exports.User = (0, _component.createComponent)(function (_ref) {
+var User = exports.User = (0, _framework.createComponent)(function (_ref) {
   var name = _ref.name,
       actions = _ref.actions;
-  return (0, _element.div)(_templateObject, (0, _element.h1)(_templateObject2), (0, _element.h2)(_templateObject3, name), (0, _element.div)(_templateObject4, (0, _element.span)(_templateObject5), (0, _element.h2)(_templateObject6), (0, _element.button)(_templateObject7, (0, _directive.onClick)(actions.changeName))));
+  return (0, _framework.div)(_templateObject, (0, _framework.h1)(_templateObject2), (0, _framework.h2)(_templateObject3, name), (0, _framework.div)(_templateObject4, (0, _framework.span)(_templateObject5), (0, _framework.h2)(_templateObject6), (0, _framework.button)(_templateObject7, (0, _framework.onClick)(actions.changeName))));
 }, defaultState, actions);
-},{"./framework/core/component":46,"./framework/templates/element":10,"./framework/directives/directive":11}],4:[function(require,module,exports) {
+},{"./framework":57}],4:[function(require,module,exports) {
 "use strict";
 
-var _vDom = require("./framework/core/vDom");
+var _framework = require("./framework");
 
 var _user = require("./user");
 
-(0, _vDom.initApplication)("#app", (0, _user.User)());
-},{"./framework/core/vDom":54,"./user":6}],56:[function(require,module,exports) {
+(0, _framework.initApplication)("#app", (0, _user.User)());
+},{"./framework":57,"./user":6}],62:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1260,5 +1284,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[56,4])
+},{}]},{},[62,4])
 //# sourceMappingURL=/htmlTemplates.7ed37030.map
