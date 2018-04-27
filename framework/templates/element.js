@@ -1,16 +1,16 @@
 import h from "snabbdom/h";
 import { create } from "domain";
 
-const reducer = args => (acc, curr, index) => {
+const reducer = args => ({ events, children }, curr, index) => {
   const currentArg = args[index];
 
   return {
     events:
       currentArg && currentArg.event
-        ? { ...acc.events, ...currentArg.event }
-        : acc.events,
+        ? { ...events, ...currentArg.event }
+        : events,
     children: [
-      ...acc.children,
+      ...children,
       currentArg && currentArg.element
         ? currentArg.element
         : `${curr}${currentArg || ""}`

@@ -1284,12 +1284,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var reducer = function reducer(args) {
-  return function (acc, curr, index) {
+  return function (_ref, curr, index) {
+    var events = _ref.events,
+        children = _ref.children;
+
     var currentArg = args[index];
 
     return {
-      events: currentArg && currentArg.event ? _extends({}, acc.events, currentArg.event) : acc.events,
-      children: [].concat(_toConsumableArray(acc.children), [currentArg && currentArg.element ? currentArg.element : "" + curr + (currentArg || "")])
+      events: currentArg && currentArg.event ? _extends({}, events, currentArg.event) : events,
+      children: [].concat(_toConsumableArray(children), [currentArg && currentArg.element ? currentArg.element : "" + curr + (currentArg || "")])
     };
   };
 };
@@ -1370,7 +1373,7 @@ var _vDom = require("./framework/internals/vDom");
 var _user = require("./user");
 
 (0, _vDom.initApplication)("#app", (0, _user.User)({}));
-},{"./framework/internals/vDom":7,"./user":6}],46:[function(require,module,exports) {
+},{"./framework/internals/vDom":7,"./user":6}],48:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1539,5 +1542,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[46,4])
+},{}]},{},[48,4])
 //# sourceMappingURL=/htmlTemplates.7ed37030.map
