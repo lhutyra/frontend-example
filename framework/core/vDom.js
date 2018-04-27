@@ -4,7 +4,8 @@ import toVNode from "snabbdom/tovnode";
 export const patch = snabbdom.init([
   require("snabbdom/modules/eventlisteners").default,
   require("snabbdom/modules/class").default,
-  require("snabbdom/modules/style").default // attaches event listeners
+  require("snabbdom/modules/style").default,
+  require("snabbdom/modules/props").default // attaches event listeners
 ]);
 
 export const initApplication = (selector, vNode) =>
