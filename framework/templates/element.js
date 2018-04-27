@@ -13,7 +13,7 @@ const reducer = args => ({ events, children }, curr, index) => {
       ...children,
       currentArg && currentArg.element
         ? currentArg.element
-        : `${curr}${currentArg || ""}`
+        : `${curr || ""}${currentArg || ""}`
     ]
   };
 };
@@ -32,3 +32,4 @@ export const div = createComponent("div");
 export const h1 = createComponent("h1");
 export const h2 = createComponent("h2");
 export const span = createComponent("span");
+export const button = createComponent("button");
