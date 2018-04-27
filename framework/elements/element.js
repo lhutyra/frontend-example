@@ -1,12 +1,20 @@
 import h from "snabbdom/h";
 
+const initialElementState = {
+  children: [],
+  props: {}
+};
+
 const actionHandlers = {
   directive: (state, templateString, newElement) => ({
     ...state,
     children: [...state.children, templateString],
     props: {
       ...state.props,
-      class: { ...state.props.class, ...newElement.className }
+      [newElement.name]: {
+        ...state.props[newElement.name],
+        ...newElement[newElement.name]
+      }
     }
   }),
   event: (state, templateString, newElement) => ({
@@ -34,13 +42,7 @@ const elementReducer = (args, elementName) => (acc, templateString, index) => {
 const createElement = elementName => (strings, ...args) => {
   const { props, children } = strings.reduce(
     elementReducer(args, elementName),
-    {
-      children: [],
-      props: {
-        on: {},
-        class: {}
-      }
-    }
+    initialElementState
   );
 
   return {

@@ -1049,12 +1049,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var createEventHandlerFor = exports.createEventHandlerFor = function createEventHandlerFor(name) {
   return function (props) {
     return _defineProperty({
-      type: "directive"
+      type: "directive",
+      name: name
     }, name, _extends({}, props));
   };
 };
 
-var className = exports.className = createEventHandlerFor("className");
+var className = exports.className = createEventHandlerFor("class");
 var style = exports.style = createEventHandlerFor("style");
 },{}],32:[function(require,module,exports) {
 "use strict";
@@ -1141,15 +1142,20 @@ var _h2 = _interopRequireDefault(_h);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+var initialElementState = {
+  children: [],
+  props: {}
+};
 
 var actionHandlers = {
   directive: function directive(state, templateString, newElement) {
     return _extends({}, state, {
       children: [].concat(_toConsumableArray(state.children), [templateString]),
-      props: _extends({}, state.props, {
-        class: _extends({}, state.props.class, newElement.className)
-      })
+      props: _extends({}, state.props, _defineProperty({}, newElement.name, _extends({}, state.props[newElement.name], newElement[newElement.name])))
     });
   },
   event: function event(state, templateString, newElement) {
@@ -1185,13 +1191,7 @@ var createElement = function createElement(elementName) {
       args[_key - 1] = arguments[_key];
     }
 
-    var _strings$reduce = strings.reduce(elementReducer(args, elementName), {
-      children: [],
-      props: {
-        on: {},
-        class: {}
-      }
-    }),
+    var _strings$reduce = strings.reduce(elementReducer(args, elementName), initialElementState),
         props = _strings$reduce.props,
         children = _strings$reduce.children;
 
