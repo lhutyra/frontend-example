@@ -1169,9 +1169,9 @@ var actionHandlers = {
       children: [].concat(_toConsumableArray(state.children), [templateString, newElement.element])
     });
   },
-  text: function text(state, current, currentArg) {
+  text: function text(state, templateString, newElement) {
     return _extends({}, state, {
-      children: [].concat(_toConsumableArray(state.children), ["" + (current || "") + (currentArg || "")])
+      children: [].concat(_toConsumableArray(state.children), ["" + (templateString || "") + (newElement || "")])
     });
   }
 };
@@ -1213,7 +1213,6 @@ var button = exports.button = createElement("button");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.span = exports.button = exports.h2 = exports.h1 = exports.div = exports.className = exports.onClick = exports.initApplication = exports.createComponent = undefined;
 
 var _component = require("./core/component");
 
@@ -1225,15 +1224,18 @@ var _directives = require("./directives/directives");
 
 var _element = require("./elements/element");
 
-exports.createComponent = _component.createComponent;
-exports.initApplication = _vDom.initApplication;
-exports.onClick = _events.onClick;
-exports.className = _directives.className;
-exports.div = _element.div;
-exports.h1 = _element.h1;
-exports.h2 = _element.h2;
-exports.button = _element.button;
-exports.span = _element.span;
+exports.default = {
+  createComponent: _component.createComponent,
+  initApplication: _vDom.initApplication,
+  onClick: _events.onClick,
+  className: _directives.className,
+  div: _element.div,
+  h1: _element.h1,
+  h2: _element.h2,
+  button: _element.button,
+  span: _element.span,
+  style: _directives.style
+};
 },{"./core/component":10,"./core/vDom":11,"./directives/events":12,"./directives/directives":13,"./elements/element":14}],6:[function(require,module,exports) {
 "use strict";
 
@@ -1254,19 +1256,13 @@ var _templateObject = _taggedTemplateLiteral(["\n  ", "\n  ", "\n\n  ", "\n  "],
 
 var _framework = require("../framework");
 
+var _framework2 = _interopRequireDefault(_framework);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var template = function template(_ref) {
-  var name = _ref.name,
-      actions = _ref.actions;
-  return (0, _framework.div)(_templateObject, (0, _framework.h1)(_templateObject2), (0, _framework.h2)(_templateObject3, name), (0, _framework.div)(_templateObject4, (0, _framework.span)(_templateObject5, (0, _framework.className)({
-    blue: name === "Marvin",
-    red: name !== "Marvin"
-  })), (0, _framework.h2)(_templateObject6), (0, _framework.button)(_templateObject7, (0, _framework.onClick)(actions.changeName))));
-};
-
 var state = { name: "Jack" };
-
 var actions = {
   changeName: function changeName(state) {
     return _extends({}, state, {
@@ -1275,15 +1271,27 @@ var actions = {
   }
 };
 
-var User = exports.User = (0, _framework.createComponent)(template, state, actions);
+var template = function template(_ref) {
+  var name = _ref.name,
+      actions = _ref.actions;
+  return _framework2.default.div(_templateObject, _framework2.default.h1(_templateObject2), _framework2.default.h2(_templateObject3, name), _framework2.default.div(_templateObject4, _framework2.default.span(_templateObject5, _framework2.default.style({
+    backgroundColor: name === "Marvin" ? "blue" : "red"
+  })), _framework2.default.h2(_templateObject6), _framework2.default.button(_templateObject7, _framework2.default.onClick(actions.changeName))));
+};
+
+var User = exports.User = _framework2.default.createComponent(template, state, actions);
 },{"../framework":8}],4:[function(require,module,exports) {
 "use strict";
 
 var _framework = require("./framework");
 
+var _framework2 = _interopRequireDefault(_framework);
+
 var _user = require("./src/user");
 
-(0, _framework.initApplication)("#app", (0, _user.User)());
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_framework2.default.initApplication("#app", (0, _user.User)());
 },{"./framework":8,"./src/user":6}],46:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';

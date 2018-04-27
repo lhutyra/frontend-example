@@ -1,10 +1,10 @@
 import { createComponent } from "./core/component";
 import { initApplication } from "./core/vDom";
 import { onClick } from "./directives/events";
-import { className } from "./directives/directives";
+import { className, style } from "./directives/directives";
 import { div, h1, h2, button, span } from "./elements/element";
 
-export {
+export default {
   createComponent,
   initApplication,
   onClick,
@@ -13,5 +13,6 @@ export {
   h1,
   h2,
   button,
-  span
+  span,
+  style
 };

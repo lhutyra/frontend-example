@@ -1,4 +1,4 @@
-import { initApplication } from "./framework";
+import x from "./framework";
 import { User } from "./src/user";
 
-initApplication("#app", User());
+x.initApplication("#app", User());

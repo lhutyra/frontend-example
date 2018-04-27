@@ -26,9 +26,9 @@ const actionHandlers = {
     ...state,
     children: [...state.children, templateString, newElement.element]
   }),
-  text: (state, current, currentArg) => ({
+  text: (state, templateString, newElement) => ({
     ...state,
-    children: [...state.children, `${current || ""}${currentArg || ""}`]
+    children: [...state.children, `${templateString || ""}${newElement || ""}`]
   })
 };
 

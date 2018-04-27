@@ -1,31 +1,6 @@
-import {
-  createComponent,
-  div,
-  h1,
-  h2,
-  span,
-  button,
-  onClick,
-  className
-} from "../framework";
-
-const template = ({ name, actions }) =>
-  div`
-  ${h1`This is the page title`}
-  ${h2`This is the page subtitle ${name}`}
-
-  ${div`
-      ${span`This is a div ${className({
-        blue: name === "Marvin",
-        red: name !== "Marvin"
-      })}`}
-      ${h2`With its children on h2`}
-      ${button`Click me ${onClick(actions.changeName)}`}
-    `}
-  `;
+import x from "../framework";
 
 const state = { name: "Jack" };
-
 const actions = {
   changeName: state => ({
     ...state,
@@ -33,4 +8,18 @@ const actions = {
   })
 };
 
-export const User = createComponent(template, state, actions);
+const template = ({ name, actions }) =>
+  x.div`
+  ${x.h1`This is the page title`}
+  ${x.h2`This is the page subtitle ${name}`}
+
+  ${x.div`
+      ${x.span`This is a div ${x.style({
+        backgroundColor: name === "Marvin" ? "blue" : "red"
+      })}`}
+      ${x.h2`With its children on h2`}
+      ${x.button`Click me ${x.onClick(actions.changeName)}`}
+    `}
+  `;
+
+export const User = x.createComponent(template, state, actions);
