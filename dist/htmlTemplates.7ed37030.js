@@ -1091,29 +1091,73 @@ var _h2 = _interopRequireDefault(_h);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var events = {
+  click: true
+};
+
+var isEvent = function isEvent(arg) {
+  return arg && events[arg.type];
+};
+
+var reducer = function reducer(args) {
+  return function (acc, curr, index) {
+    var currentArg = args[index];
+    if (isEvent(currentArg)) {
+      return _extends({}, acc, {
+        events: _extends({}, acc.events, currentArg.directive)
+      });
+    }
+    return _extends({}, acc, {
+      template: "" + acc.template + curr + (args[index] || "")
+    });
+  };
+};
+
 var div = exports.div = function div(strings) {
   for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
     args[_key - 1] = arguments[_key];
   }
 
-  var component = strings.reduce(function (acc, curr, index) {
-    return _extends({}, acc, {
-      template: "" + acc.template + curr + (args[index] || "")
-    });
-  }, { template: "", events: {} });
+  var divReducer = reducer(args);
 
-  return (0, _h2.default)("div", {}, component.template);
+  var _strings$reduce = strings.reduce(divReducer, {
+    template: "",
+    events: {}
+  }),
+      events = _strings$reduce.events,
+      template = _strings$reduce.template;
+
+  return (0, _h2.default)("div", { on: events }, template);
 };
-},{"snabbdom/h":26}],11:[function(require,module,exports) {
+},{"snabbdom/h":26}],49:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var onClick = exports.onClick = function onClick() {
-  return null;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var createDirective = exports.createDirective = function createDirective(name) {
+  return function (f) {
+    return {
+      type: name,
+      directive: _defineProperty({}, name, f)
+    };
+  };
 };
-},{}],6:[function(require,module,exports) {
+},{}],11:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.onClick = undefined;
+
+var _directive = require("./directive");
+
+var onClick = exports.onClick = (0, _directive.createDirective)("click");
+},{"./directive":49}],6:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1129,9 +1173,10 @@ var _onClick = require("./framework/directives/onClick");
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var User = exports.User = function User(props, actions) {
-  return (0, _div.div)(_templateObject, props.name, (0, _onClick.onClick)(function () {
-    return console.log(props.name);
+var User = exports.User = function User(_ref) {
+  var name = _ref.name;
+  return (0, _div.div)(_templateObject, name, (0, _onClick.onClick)(function () {
+    return console.log(name);
   }));
 };
 },{"./framework/templates/div":10,"./framework/directives/onClick":11}],4:[function(require,module,exports) {
@@ -1141,8 +1186,9 @@ var _vDom = require("./framework/internals/vDom");
 
 var _user = require("./user");
 
+console.log((0, _user.User)({ name: "Marvin" }));
 (0, _vDom.initApplication)("#app", (0, _user.User)({ name: "Marvin" }));
-},{"./framework/internals/vDom":7,"./user":6}],44:[function(require,module,exports) {
+},{"./framework/internals/vDom":7,"./user":6}],50:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1311,5 +1357,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[44,4])
+},{}]},{},[50,4])
 //# sourceMappingURL=/htmlTemplates.7ed37030.map

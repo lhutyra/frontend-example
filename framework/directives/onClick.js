@@ -1,1 +1,3 @@
-export const onClick = () => null;
+import { createDirective } from "./directive";
+
+export const onClick = createDirective("click");
