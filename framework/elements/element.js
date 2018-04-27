@@ -11,11 +11,11 @@ const actionHandlers = {
     children: [...state.children, templateString],
     events: { ...state.events, ...newElement.event }
   }),
-  element: (state, newElement) => ({
+  element: (state, templateString, newElement) => ({
     ...state,
-    children: [...state.children, newElement.element]
+    children: [...state.children, templateString, newElement.element]
   }),
-  default: (state, current, currentArg) => ({
+  text: (state, current, currentArg) => ({
     ...state,
     children: [...state.children, `${current || ""}${currentArg || ""}`]
   })
@@ -34,11 +34,11 @@ const elementReducer = (args, elementName) => (acc, templateString, index) => {
     }
 
     if (currentArg.element) {
-      return actionHandlers.element(acc, currentArg);
+      return actionHandlers.element(acc, templateString, currentArg);
     }
   }
 
-  return actionHandlers.default(acc, templateString, currentArg);
+  return actionHandlers.text(acc, templateString, currentArg);
 };
 
 const createElement = elementName => (strings, ...args) => {

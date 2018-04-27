@@ -14,7 +14,10 @@ ${h1`This is the page title`}
 ${h2`This is the page subtitle ${name}`}
 
 ${div`
-    ${span`This is a div ${className({ blue: true })}`}
+    ${span`This is a div ${className({
+      blue: name === "Marvin",
+      red: name !== "Marvin"
+    })}`}
     ${h2`With its children on h2`}
     ${button`Click me ${onClick(actions.changeName)}`}
   `}

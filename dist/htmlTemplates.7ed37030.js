@@ -1068,12 +1068,12 @@ var actionHandlers = {
       events: _extends({}, state.events, newElement.event)
     });
   },
-  element: function element(state, newElement) {
+  element: function element(state, templateString, newElement) {
     return _extends({}, state, {
-      children: [].concat(_toConsumableArray(state.children), [newElement.element])
+      children: [].concat(_toConsumableArray(state.children), [templateString, newElement.element])
     });
   },
-  default: function _default(state, current, currentArg) {
+  text: function text(state, current, currentArg) {
     return _extends({}, state, {
       children: [].concat(_toConsumableArray(state.children), ["" + (current || "") + (currentArg || "")])
     });
@@ -1094,11 +1094,11 @@ var elementReducer = function elementReducer(args, elementName) {
       }
 
       if (currentArg.element) {
-        return actionHandlers.element(acc, currentArg);
+        return actionHandlers.element(acc, templateString, currentArg);
       }
     }
 
-    return actionHandlers.default(acc, templateString, currentArg);
+    return actionHandlers.text(acc, templateString, currentArg);
   };
 };
 
@@ -1181,7 +1181,10 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 var template = function template(_ref) {
   var name = _ref.name,
       actions = _ref.actions;
-  return (0, _framework.div)(_templateObject, (0, _framework.h1)(_templateObject2), (0, _framework.h2)(_templateObject3, name), (0, _framework.div)(_templateObject4, (0, _framework.span)(_templateObject5, (0, _framework.className)({ blue: true })), (0, _framework.h2)(_templateObject6), (0, _framework.button)(_templateObject7, (0, _framework.onClick)(actions.changeName))));
+  return (0, _framework.div)(_templateObject, (0, _framework.h1)(_templateObject2), (0, _framework.h2)(_templateObject3, name), (0, _framework.div)(_templateObject4, (0, _framework.span)(_templateObject5, (0, _framework.className)({
+    blue: name === "Marvin",
+    red: name !== "Marvin"
+  })), (0, _framework.h2)(_templateObject6), (0, _framework.button)(_templateObject7, (0, _framework.onClick)(actions.changeName))));
 };
 
 var state = { name: "Jack" };
@@ -1203,7 +1206,7 @@ var _framework = require("./framework");
 var _user = require("./user");
 
 (0, _framework.initApplication)("#app", (0, _user.User)());
-},{"./framework":8,"./user":6}],46:[function(require,module,exports) {
+},{"./framework":8,"./user":6}],49:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1372,5 +1375,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[46,4])
+},{}]},{},[49,4])
 //# sourceMappingURL=/htmlTemplates.7ed37030.map
