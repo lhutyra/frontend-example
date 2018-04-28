@@ -1,4 +1,4 @@
 import _ from "./framework";
-import { User } from "./src/user";
+import { App } from "./src/app";
 
-_.initApplication("#app", User());
+_.initApplication("#app", App());

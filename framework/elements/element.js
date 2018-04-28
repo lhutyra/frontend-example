@@ -1,4 +1,5 @@
 import h from "snabbdom/h";
+import { create } from "domain";
 
 const initialElementState = {
   children: [],
@@ -61,3 +62,8 @@ export const h2 = createElement("h2");
 export const span = createElement("span");
 export const button = createElement("button");
 export const a = createElement("a");
+export const nav = createElement("nav");
+export const ul = createElement("ul");
+export const li = createElement("li");
+export const form = createElement("form");
+export const input = createElement("input");

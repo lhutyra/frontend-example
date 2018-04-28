@@ -1,6 +1,6 @@
 import { patch } from "./vDom";
 
-export const createComponent = (node, defaultState, actions) => {
+export const createComponent = (node, defaultState = {}, actions = {}) => {
   let state = defaultState;
   let previous;
 

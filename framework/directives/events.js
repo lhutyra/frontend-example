@@ -4,3 +4,4 @@ export const createEventHandlerFor = name => f => ({
 });
 
 export const onClick = createEventHandlerFor("click");
+export const keyUp = createEventHandlerFor("keyup");
