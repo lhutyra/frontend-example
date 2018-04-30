@@ -26,4 +26,4 @@ const template = ({ items, title }) => _.nav`
 	`}
 `;
 
-export const Navbar = _.createComponent(template, state);
+export const Navbar = _.createComponent({ template, state });

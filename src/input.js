@@ -10,4 +10,4 @@ const template = ({ items, title }) => _.form`${_.className({
 	`}
 `;
 
-export const Input = _.createComponent(template, state);
+export const Input = _.createComponent({ template, state });

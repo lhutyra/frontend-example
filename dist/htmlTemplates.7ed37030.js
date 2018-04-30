@@ -77,7 +77,7 @@ parcelRequire = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({48:[function(require,module,exports) {
+})({54:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91,7 +91,7 @@ function vnode(sel, data, children, text, elm) {
 }
 exports.default = vnode;
 //# sourceMappingURL=vnode.js.map
-},{}],49:[function(require,module,exports) {
+},{}],55:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -103,7 +103,7 @@ function primitive(s) {
     return typeof s === 'string' || typeof s === 'number';
 }
 //# sourceMappingURL=is.js.map
-},{}],50:[function(require,module,exports) {
+},{}],56:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -173,7 +173,7 @@ var htmlDomApi = exports.htmlDomApi = {
 };
 exports.default = htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
-},{}],51:[function(require,module,exports) {
+},{}],57:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -238,7 +238,7 @@ function h(sel, b, c) {
 ;
 exports.default = h;
 //# sourceMappingURL=h.js.map
-},{"./vnode":48,"./is":49}],52:[function(require,module,exports) {
+},{"./vnode":54,"./is":55}],58:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -295,7 +295,7 @@ var thunk = exports.thunk = function thunk(sel, key, fn, args) {
 };
 exports.default = thunk;
 //# sourceMappingURL=thunk.js.map
-},{"./h":51}],26:[function(require,module,exports) {
+},{"./h":57}],34:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -616,7 +616,7 @@ function init(modules, domApi) {
     };
 }
 //# sourceMappingURL=snabbdom.js.map
-},{"./vnode":48,"./is":49,"./htmldomapi":50,"./h":51,"./thunk":52}],40:[function(require,module,exports) {
+},{"./vnode":54,"./is":55,"./htmldomapi":56,"./h":57,"./thunk":58}],47:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function vnode(sel, data, children, text, elm) {
@@ -627,7 +627,7 @@ function vnode(sel, data, children, text, elm) {
 exports.vnode = vnode;
 exports.default = vnode;
 //# sourceMappingURL=vnode.js.map
-},{}],42:[function(require,module,exports) {
+},{}],46:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function createElement(tagName) {
@@ -694,7 +694,7 @@ exports.htmlDomApi = {
 };
 exports.default = exports.htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
-},{}],27:[function(require,module,exports) {
+},{}],37:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = require("./vnode");
@@ -739,7 +739,7 @@ function toVNode(node, domApi) {
 exports.toVNode = toVNode;
 exports.default = toVNode;
 //# sourceMappingURL=tovnode.js.map
-},{"./vnode":40,"./htmldomapi":42}],28:[function(require,module,exports) {
+},{"./vnode":47,"./htmldomapi":46}],35:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function invokeHandler(handler, vnode, event) {
@@ -835,7 +835,7 @@ exports.eventListenersModule = {
 };
 exports.default = exports.eventListenersModule;
 //# sourceMappingURL=eventlisteners.js.map
-},{}],29:[function(require,module,exports) {
+},{}],36:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function updateClass(oldVnode, vnode) {
@@ -861,7 +861,7 @@ function updateClass(oldVnode, vnode) {
 exports.classModule = { create: updateClass, update: updateClass };
 exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
-},{}],30:[function(require,module,exports) {
+},{}],38:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var raf = (typeof window !== 'undefined' && window.requestAnimationFrame) || setTimeout;
@@ -948,7 +948,7 @@ exports.styleModule = {
 };
 exports.default = exports.styleModule;
 //# sourceMappingURL=style.js.map
-},{}],31:[function(require,module,exports) {
+},{}],39:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function updateProps(oldVnode, vnode) {
@@ -975,7 +975,7 @@ function updateProps(oldVnode, vnode) {
 exports.propsModule = { create: updateProps, update: updateProps };
 exports.default = exports.propsModule;
 //# sourceMappingURL=props.js.map
-},{}],13:[function(require,module,exports) {
+},{}],15:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1001,7 +1001,7 @@ var patch = exports.patch = snabbdom.init([require("snabbdom/modules/eventlisten
 var initApplication = exports.initApplication = function initApplication(selector, vNode) {
   return patch((0, _tovnode2.default)(document.querySelector(selector)), vNode.element);
 };
-},{"snabbdom":26,"snabbdom/tovnode":27,"snabbdom/modules/eventlisteners":28,"snabbdom/modules/class":29,"snabbdom/modules/style":30,"snabbdom/modules/props":31}],12:[function(require,module,exports) {
+},{"snabbdom":34,"snabbdom/tovnode":37,"snabbdom/modules/eventlisteners":35,"snabbdom/modules/class":36,"snabbdom/modules/style":38,"snabbdom/modules/props":39}],14:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1015,23 +1015,25 @@ var _vDom = require("./vDom");
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var createComponent = exports.createComponent = function createComponent(node) {
-  var defaultState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var actions = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+var createComponent = exports.createComponent = function createComponent(_ref) {
+  var template = _ref.template,
+      _ref$state = _ref.state,
+      state = _ref$state === undefined ? {} : _ref$state,
+      _ref$methods = _ref.methods,
+      methods = _ref$methods === undefined ? {} : _ref$methods;
 
-  var state = defaultState;
   var previous = void 0;
 
-  var mappedActions = function mappedActions(props) {
-    return Object.keys(actions).reduce(function (acc, key) {
+  var mappedMethods = function mappedMethods(props) {
+    return Object.keys(methods).reduce(function (acc, key) {
       return _extends({}, acc, _defineProperty({}, key, function () {
         for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
           args[_key] = arguments[_key];
         }
 
-        state = _extends({}, actions[key].apply(actions, [state].concat(args)));
-        var newNode = node(_extends({}, state, props, {
-          actions: mappedActions(props)
+        state = _extends({}, methods[key].apply(methods, [state].concat(args)));
+        var newNode = template(_extends({}, state, props, {
+          methods: mappedMethods(props)
         }));
         (0, _vDom.patch)(previous.element, newNode.element);
         previous = newNode;
@@ -1042,11 +1044,11 @@ var createComponent = exports.createComponent = function createComponent(node) {
   return function () {
     var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-    previous = node(_extends({}, state, props, { actions: mappedActions(props) }));
+    previous = template(_extends({}, state, props, { methods: mappedMethods(props) }));
     return previous;
   };
 };
-},{"./vDom":13}],14:[function(require,module,exports) {
+},{"./vDom":15}],16:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1066,7 +1068,7 @@ var createEventHandlerFor = exports.createEventHandlerFor = function createEvent
 
 var onClick = exports.onClick = createEventHandlerFor("click");
 var keyUp = exports.keyUp = createEventHandlerFor("keyup");
-},{}],46:[function(require,module,exports) {
+},{}],50:[function(require,module,exports) {
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1332,7 +1334,7 @@ function isObject(arg) {
 function isUndefined(arg) {
   return arg === void 0;
 }
-},{}],24:[function(require,module,exports) {
+},{}],28:[function(require,module,exports) {
 // This file should be ES5 compatible
 /* eslint prefer-spread:0, no-var:0, prefer-reflect:0, no-magic-numbers:0 */
 'use strict';
@@ -1399,7 +1401,7 @@ module.exports = function () {
 	};
 	return domain;
 }.call(this);
-},{"events":46}],15:[function(require,module,exports) {
+},{"events":50}],17:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1425,7 +1427,7 @@ var createAttribute = function createAttribute(name) {
 var className = exports.className = createAttribute("class");
 var style = exports.style = createAttribute("style");
 var props = exports.props = createAttribute("props");
-},{"domain":24}],16:[function(require,module,exports) {
+},{"domain":28}],18:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1439,7 +1441,7 @@ var forEach = exports.forEach = function forEach(list, handler) {
     })
   };
 };
-},{}],41:[function(require,module,exports) {
+},{}],64:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.array = Array.isArray;
@@ -1448,7 +1450,7 @@ function primitive(s) {
 }
 exports.primitive = primitive;
 //# sourceMappingURL=is.js.map
-},{}],32:[function(require,module,exports) {
+},{}],51:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = require("./vnode");
@@ -1508,32 +1510,38 @@ exports.h = h;
 ;
 exports.default = h;
 //# sourceMappingURL=h.js.map
-},{"./vnode":40,"./is":41}],17:[function(require,module,exports) {
+},{"./vnode":47,"./is":64}],30:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.input = exports.form = exports.li = exports.ul = exports.nav = exports.a = exports.button = exports.span = exports.h2 = exports.h1 = exports.div = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+exports.node = undefined;
 
 var _h = require("snabbdom/h");
 
 var _h2 = _interopRequireDefault(_h);
 
-var _domain = require("domain");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var node = exports.node = function node(elementName, props, children) {
+  return {
+    type: "element",
+    element: (0, _h2.default)(elementName, props, children)
+  };
+};
+},{"snabbdom/h":51}],31:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var initialElementState = {
-  children: [],
-  props: {}
-};
 
 var actionHandlers = {
   directive: function directive(state, templateString, newElement) {
@@ -1565,7 +1573,12 @@ var actionHandlers = {
   }
 };
 
-var elementReducer = function elementReducer(args, elementName) {
+var initialElementState = exports.initialElementState = {
+  children: [],
+  props: {}
+};
+
+var elementReducer = exports.elementReducer = function elementReducer(args, elementName) {
   return function (acc, templateString, index) {
     var currentArg = args[index];
     var type = currentArg && currentArg.type || "text";
@@ -1573,6 +1586,17 @@ var elementReducer = function elementReducer(args, elementName) {
     return actionHandlers[type](acc, templateString, currentArg);
   };
 };
+},{}],19:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.input = exports.form = exports.li = exports.ul = exports.nav = exports.a = exports.button = exports.span = exports.h2 = exports.h1 = exports.div = undefined;
+
+var _node = require("../core/node");
+
+var _element = require("./element.reducer");
 
 var createElement = function createElement(elementName) {
   return function (strings) {
@@ -1580,14 +1604,11 @@ var createElement = function createElement(elementName) {
       args[_key - 1] = arguments[_key];
     }
 
-    var _strings$reduce = strings.reduce(elementReducer(args, elementName), initialElementState),
+    var _strings$reduce = strings.reduce((0, _element.elementReducer)(args, elementName), _element.initialElementState),
         props = _strings$reduce.props,
         children = _strings$reduce.children;
 
-    return {
-      type: "element",
-      element: (0, _h2.default)(elementName, props, children)
-    };
+    return (0, _node.node)(elementName, props, children);
   };
 };
 
@@ -1602,7 +1623,7 @@ var ul = exports.ul = createElement("ul");
 var li = exports.li = createElement("li");
 var form = exports.form = createElement("form");
 var input = exports.input = createElement("input");
-},{"snabbdom/h":32,"domain":24}],8:[function(require,module,exports) {
+},{"../core/node":30,"./element.reducer":31}],8:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1637,7 +1658,7 @@ exports.default = _extends({
   createComponent: _component.createComponent,
   initApplication: _vDom.initApplication
 }, elements, directives, attributes, events);
-},{"./core/component":12,"./core/vDom":13,"./directives/events":14,"./directives/attributes":15,"./directives/directives":16,"./elements/element":17}],60:[function(require,module,exports) {
+},{"./core/component":14,"./core/vDom":15,"./directives/events":16,"./directives/attributes":17,"./directives/directives":18,"./elements/element":19}],26:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1667,7 +1688,7 @@ var template = function template(_ref) {
 	})));
 };
 
-var Input = exports.Input = _framework2.default.createComponent(template, state);
+var Input = exports.Input = _framework2.default.createComponent({ template: template, state: state });
 },{"../framework":8}],10:[function(require,module,exports) {
 "use strict";
 
@@ -1704,8 +1725,8 @@ var template = function template(_ref) {
 	})), _framework2.default.form(_templateObject8, _framework2.default.className({ "navbar-form": true, "navbar-left": true }), (0, _input.Input)()))));
 };
 
-var Navbar = exports.Navbar = _framework2.default.createComponent(template, state);
-},{"../framework":8,"./input":60}],61:[function(require,module,exports) {
+var Navbar = exports.Navbar = _framework2.default.createComponent({ template: template, state: state });
+},{"../framework":8,"./input":26}],11:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1728,8 +1749,8 @@ var template = function template(_ref) {
 	return _framework2.default.span(_templateObject, _framework2.default.className({ label: true, "label-default": true }), value);
 };
 
-var Label = exports.Label = _framework2.default.createComponent(template);
-},{"../framework":8}],59:[function(require,module,exports) {
+var Label = exports.Label = _framework2.default.createComponent({ template: template });
+},{"../framework":8}],6:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1761,7 +1782,7 @@ var state = {
   resultSet: []
 };
 
-var actions = {
+var methods = {
   changeResultSet: function changeResultSet(state, resultSet) {
     return _extends({}, state, { resultSet: resultSet });
   }
@@ -1770,24 +1791,22 @@ var actions = {
 var fetchPokemon = function fetchPokemon(dispatch) {
   return fetch("https://pokeapi.co/api/v2/pokemon/").then(function (res) {
     return res.json();
-  }).then(function (dataSet) {
-    return dataSet.results;
+  }).then(function (_ref) {
+    var results = _ref.results;
+    return results;
   }).then(dispatch);
 };
 
-var template = function template(_ref) {
-  var appName = _ref.appName,
-      pageTitle = _ref.pageTitle,
-      resultSet = _ref.resultSet,
-      actions = _ref.actions;
-
-  //fetchPokemon(actions.changeResultSet);
-
+var template = function template(_ref2) {
+  var appName = _ref2.appName,
+      pageTitle = _ref2.pageTitle,
+      resultSet = _ref2.resultSet,
+      actions = _ref2.actions;
   return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" }))));
 };
 
-var App = exports.App = _framework2.default.createComponent(template, state, actions);
-},{"../framework":8,"./navbar":10,"./label":61}],4:[function(require,module,exports) {
+var App = exports.App = _framework2.default.createComponent({ template: template, state: state, methods: methods });
+},{"../framework":8,"./navbar":10,"./label":11}],4:[function(require,module,exports) {
 "use strict";
 
 var _framework = require("./framework");
@@ -1799,7 +1818,7 @@ var _app = require("./src/app");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _framework2.default.initApplication("#app", (0, _app.App)());
-},{"./framework":8,"./src/app":59}],63:[function(require,module,exports) {
+},{"./framework":8,"./src/app":6}],66:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1829,7 +1848,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '54277' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49153' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -1968,5 +1987,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[63,4])
+},{}]},{},[66,4])
 //# sourceMappingURL=/htmlTemplates.7ed37030.map

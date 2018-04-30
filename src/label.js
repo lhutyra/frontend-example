@@ -5,4 +5,4 @@ const template = ({ value }) => _.span`
 	${value}
 `;
 
-export const Label = _.createComponent(template);
+export const Label = _.createComponent({ template });

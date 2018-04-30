@@ -1,19 +1,18 @@
 import { patch } from "./vDom";
 
-export const createComponent = (node, defaultState = {}, actions = {}) => {
-  let state = defaultState;
+export const createComponent = ({ template, state = {}, methods = {} }) => {
   let previous;
 
-  const mappedActions = props =>
-    Object.keys(actions).reduce(
+  const mappedMethods = props =>
+    Object.keys(methods).reduce(
       (acc, key) => ({
         ...acc,
         [key]: (...args) => {
-          state = { ...actions[key](state, ...args) };
-          const newNode = node({
+          state = { ...methods[key](state, ...args) };
+          const newNode = template({
             ...state,
             ...props,
-            actions: mappedActions(props)
+            methods: mappedMethods(props)
           });
           patch(previous.element, newNode.element);
           previous = newNode;
@@ -23,7 +22,7 @@ export const createComponent = (node, defaultState = {}, actions = {}) => {
     );
 
   return (props = {}) => {
-    previous = node({ ...state, ...props, actions: mappedActions(props) });
+    previous = template({ ...state, ...props, methods: mappedMethods(props) });
     return previous;
   };
 };
