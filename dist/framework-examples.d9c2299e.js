@@ -1769,7 +1769,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.List = undefined;
 
 var _templateObject = _taggedTemplateLiteral(["\n\t", "\n\t", "\n\t"], ["\n\t", "\n\t", "\n\t"]),
-    _templateObject2 = _taggedTemplateLiteral(["", "", ""], ["", "", ""]);
+    _templateObject2 = _taggedTemplateLiteral(["\n\t\t", "\n\t \t ", "", ""], ["\n\t\t", "\n\t \t ", "", ""]);
 
 var _framework = require("../framework");
 
@@ -1784,9 +1784,16 @@ var ucFirst = function ucFirst(str) {
 };
 
 var template = function template(_ref) {
-  var items = _ref.items;
-  return _framework2.default.ul(_templateObject, _framework2.default.className({ "list-group": true }), _framework2.default.forEach(items, function (item) {
-    return _framework2.default.li(_templateObject2, _framework2.default.className({ "list-group-item": true }), ucFirst(item.name));
+  var items = _ref.items,
+      selectItem = _ref.selectItem;
+  return _framework2.default.div(_templateObject, _framework2.default.className({ "list-group": true }), _framework2.default.forEach(items, function (item) {
+    return _framework2.default.a(_templateObject2, _framework2.default.onClick(function () {
+      return selectItem(item);
+    }), _framework2.default.className({
+      "list-group-item": true,
+      "list-group-item-action": true,
+      active: item.selected
+    }), ucFirst(item.name));
   }));
 };
 
@@ -1831,6 +1838,13 @@ var methods = {
   },
   changeResultSet: function changeResultSet(state, resultSet) {
     return _extends({}, state, { resultSet: resultSet });
+  },
+  selectItem: function selectItem(state, item) {
+    return _extends({}, state, {
+      resultSet: state.resultSet.map(function (i) {
+        return i.name === item.name ? _extends({}, i, { selected: !i.selected }) : _extends({}, i, { selected: false });
+      })
+    });
   }
 };
 
@@ -1841,15 +1855,20 @@ var onLoad = function onLoad(_ref) {
   }).then(function (_ref2) {
     var results = _ref2.results;
     return results;
-  }).then(changeResultSet);
+  }).then(function (res) {
+    return changeResultSet(res.map(function (item) {
+      return _extends({}, item, { selected: false });
+    }));
+  });
 };
 
 var template = function template(_ref3) {
   var appName = _ref3.appName,
       pageTitle = _ref3.pageTitle,
-      resultSet = _ref3.resultSet;
+      resultSet = _ref3.resultSet,
+      methods = _ref3.methods;
 
-  return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" })), (0, _list.List)({ items: resultSet })));
+  return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" })), (0, _list.List)({ items: resultSet, selectItem: methods.selectItem })));
 };
 
 var App = exports.App = _framework2.default.createComponent({ template: template, state: state, methods: methods, onLoad: onLoad });

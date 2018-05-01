@@ -11,16 +11,27 @@ const state = {
 
 const methods = {
   onLoad: methods => fetchPokemon(methods.changeResultSet),
-  changeResultSet: (state, resultSet) => ({ ...state, resultSet })
+  changeResultSet: (state, resultSet) => ({ ...state, resultSet }),
+  selectItem: (state, item) => ({
+    ...state,
+    resultSet: state.resultSet.map(
+      i =>
+        i.name === item.name
+          ? { ...i, selected: !i.selected }
+          : { ...i, selected: false }
+    )
+  })
 };
 
 const onLoad = ({ changeResultSet }) =>
   fetch("https://pokeapi.co/api/v2/pokemon/")
     .then(res => res.json())
     .then(({ results }) => results)
-    .then(changeResultSet);
+    .then(res =>
+      changeResultSet(res.map(item => ({ ...item, selected: false })))
+    );
 
-const template = ({ appName, pageTitle, resultSet }) => {
+const template = ({ appName, pageTitle, resultSet, methods }) => {
   return _.div`
   ${Navbar({ title: appName })}
   ${_.div`
@@ -28,7 +39,7 @@ const template = ({ appName, pageTitle, resultSet }) => {
       ${_.h2`${pageTitle}
         ${Label({ value: `${resultSet.length} found` })}
       `}
-      ${List({ items: resultSet })}
+      ${List({ items: resultSet, selectItem: methods.selectItem })}
     `}
   `;
 };
