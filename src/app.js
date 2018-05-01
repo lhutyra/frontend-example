@@ -2,6 +2,7 @@ import _ from "../framework";
 import { Navbar } from "./navbar";
 import { Label } from "./label";
 import { List } from "./list";
+import { Loader } from "./loader";
 
 const state = {
   appName: "Pokeworld",
@@ -39,7 +40,11 @@ const template = ({ appName, pageTitle, resultSet, methods }) => {
       ${_.h2`${pageTitle}
         ${Label({ value: `${resultSet.length} found` })}
       `}
-      ${List({ items: resultSet, selectItem: methods.selectItem })}
+      ${
+        resultSet.length
+          ? List({ items: resultSet, selectItem: methods.selectItem })
+          : Loader()
+      }
     `}
   `;
 };

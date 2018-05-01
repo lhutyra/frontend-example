@@ -14,6 +14,7 @@ export const div = createElement("div");
 export const h1 = createElement("h1");
 export const h2 = createElement("h2");
 export const span = createElement("span");
+export const img = createElement("img");
 export const button = createElement("button");
 export const a = createElement("a");
 export const nav = createElement("nav");
