@@ -1,6 +1,11 @@
 import { patch } from "./vDom";
 
-export const createComponent = ({ template, state = {}, methods = {} }) => {
+export const createComponent = ({
+  template,
+  state = {},
+  methods = {},
+  onLoad = () => null
+}) => {
   let previous;
 
   const mappedMethods = props =>
@@ -22,7 +27,13 @@ export const createComponent = ({ template, state = {}, methods = {} }) => {
     );
 
   return (props = {}) => {
-    previous = template({ ...state, ...props, methods: mappedMethods(props) });
+    const methods = mappedMethods(props);
+    previous = template({ ...state, ...props, methods });
+
+    if (onLoad) {
+      onLoad(methods);
+    }
+
     return previous;
   };
 };

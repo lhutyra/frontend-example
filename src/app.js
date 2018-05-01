@@ -9,17 +9,18 @@ const state = {
 };
 
 const methods = {
+  onLoad: methods => fetchPokemon(methods.changeResultSet),
   changeResultSet: (state, resultSet) => ({ ...state, resultSet })
 };
 
-const fetchPokemon = dispatch => {
-  return fetch("https://pokeapi.co/api/v2/pokemon/")
+const onLoad = ({ changeResultSet }) =>
+  fetch("https://pokeapi.co/api/v2/pokemon/")
     .then(res => res.json())
     .then(({ results }) => results)
-    .then(dispatch);
-};
+    .then(changeResultSet);
 
-const template = ({ appName, pageTitle, resultSet, actions }) => _.div`
+const template = ({ appName, pageTitle, resultSet }) => {
+  return _.div`
   ${Navbar({ title: appName })}
   ${_.div`
       ${_.className({ container: true })}
@@ -28,5 +29,6 @@ const template = ({ appName, pageTitle, resultSet, actions }) => _.div`
       `}
     `}
   `;
+};
 
-export const App = _.createComponent({ template, state, methods });
+export const App = _.createComponent({ template, state, methods, onLoad });

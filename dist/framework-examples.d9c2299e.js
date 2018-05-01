@@ -616,7 +616,7 @@ function init(modules, domApi) {
     };
 }
 //# sourceMappingURL=snabbdom.js.map
-},{"./vnode":54,"./is":55,"./htmldomapi":56,"./h":57,"./thunk":58}],47:[function(require,module,exports) {
+},{"./vnode":54,"./is":55,"./htmldomapi":56,"./h":57,"./thunk":58}],46:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function vnode(sel, data, children, text, elm) {
@@ -627,7 +627,7 @@ function vnode(sel, data, children, text, elm) {
 exports.vnode = vnode;
 exports.default = vnode;
 //# sourceMappingURL=vnode.js.map
-},{}],46:[function(require,module,exports) {
+},{}],47:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function createElement(tagName) {
@@ -694,7 +694,7 @@ exports.htmlDomApi = {
 };
 exports.default = exports.htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
-},{}],37:[function(require,module,exports) {
+},{}],35:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = require("./vnode");
@@ -739,7 +739,7 @@ function toVNode(node, domApi) {
 exports.toVNode = toVNode;
 exports.default = toVNode;
 //# sourceMappingURL=tovnode.js.map
-},{"./vnode":47,"./htmldomapi":46}],35:[function(require,module,exports) {
+},{"./vnode":46,"./htmldomapi":47}],36:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function invokeHandler(handler, vnode, event) {
@@ -835,7 +835,7 @@ exports.eventListenersModule = {
 };
 exports.default = exports.eventListenersModule;
 //# sourceMappingURL=eventlisteners.js.map
-},{}],36:[function(require,module,exports) {
+},{}],37:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function updateClass(oldVnode, vnode) {
@@ -1001,7 +1001,7 @@ var patch = exports.patch = snabbdom.init([require("snabbdom/modules/eventlisten
 var initApplication = exports.initApplication = function initApplication(selector, vNode) {
   return patch((0, _tovnode2.default)(document.querySelector(selector)), vNode.element);
 };
-},{"snabbdom":34,"snabbdom/tovnode":37,"snabbdom/modules/eventlisteners":35,"snabbdom/modules/class":36,"snabbdom/modules/style":38,"snabbdom/modules/props":39}],14:[function(require,module,exports) {
+},{"snabbdom":34,"snabbdom/tovnode":35,"snabbdom/modules/eventlisteners":36,"snabbdom/modules/class":37,"snabbdom/modules/style":38,"snabbdom/modules/props":39}],14:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1020,7 +1020,11 @@ var createComponent = exports.createComponent = function createComponent(_ref) {
       _ref$state = _ref.state,
       state = _ref$state === undefined ? {} : _ref$state,
       _ref$methods = _ref.methods,
-      methods = _ref$methods === undefined ? {} : _ref$methods;
+      methods = _ref$methods === undefined ? {} : _ref$methods,
+      _ref$onLoad = _ref.onLoad,
+      onLoad = _ref$onLoad === undefined ? function () {
+    return null;
+  } : _ref$onLoad;
 
   var previous = void 0;
 
@@ -1044,7 +1048,13 @@ var createComponent = exports.createComponent = function createComponent(_ref) {
   return function () {
     var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-    previous = template(_extends({}, state, props, { methods: mappedMethods(props) }));
+    var methods = mappedMethods(props);
+    previous = template(_extends({}, state, props, { methods: methods }));
+
+    if (onLoad) {
+      onLoad(methods);
+    }
+
     return previous;
   };
 };
@@ -1510,7 +1520,7 @@ exports.h = h;
 ;
 exports.default = h;
 //# sourceMappingURL=h.js.map
-},{"./vnode":47,"./is":64}],30:[function(require,module,exports) {
+},{"./vnode":46,"./is":64}],30:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1783,29 +1793,33 @@ var state = {
 };
 
 var methods = {
+  onLoad: function onLoad(methods) {
+    return fetchPokemon(methods.changeResultSet);
+  },
   changeResultSet: function changeResultSet(state, resultSet) {
     return _extends({}, state, { resultSet: resultSet });
   }
 };
 
-var fetchPokemon = function fetchPokemon(dispatch) {
+var onLoad = function onLoad(_ref) {
+  var changeResultSet = _ref.changeResultSet;
   return fetch("https://pokeapi.co/api/v2/pokemon/").then(function (res) {
     return res.json();
-  }).then(function (_ref) {
-    var results = _ref.results;
+  }).then(function (_ref2) {
+    var results = _ref2.results;
     return results;
-  }).then(dispatch);
+  }).then(changeResultSet);
 };
 
-var template = function template(_ref2) {
-  var appName = _ref2.appName,
-      pageTitle = _ref2.pageTitle,
-      resultSet = _ref2.resultSet,
-      actions = _ref2.actions;
+var template = function template(_ref3) {
+  var appName = _ref3.appName,
+      pageTitle = _ref3.pageTitle,
+      resultSet = _ref3.resultSet;
+
   return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" }))));
 };
 
-var App = exports.App = _framework2.default.createComponent({ template: template, state: state, methods: methods });
+var App = exports.App = _framework2.default.createComponent({ template: template, state: state, methods: methods, onLoad: onLoad });
 },{"../framework":8,"./navbar":10,"./label":11}],4:[function(require,module,exports) {
 "use strict";
 
@@ -1848,7 +1862,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49153' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '56395' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -1988,4 +2002,4 @@ function hmrAccept(bundle, id) {
   });
 }
 },{}]},{},[66,4])
-//# sourceMappingURL=/htmlTemplates.7ed37030.map
+//# sourceMappingURL=/framework-examples.d9c2299e.map
