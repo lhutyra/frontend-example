@@ -1,6 +1,7 @@
 import _ from "../framework";
 import { Navbar } from "./navbar";
 import { Label } from "./label";
+import { List } from "./list";
 
 const state = {
   appName: "Pokeworld",
@@ -27,6 +28,7 @@ const template = ({ appName, pageTitle, resultSet }) => {
       ${_.h2`${pageTitle}
         ${Label({ value: `${resultSet.length} found` })}
       `}
+      ${List({ items: resultSet })}
     `}
   `;
 };
