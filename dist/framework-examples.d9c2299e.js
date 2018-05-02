@@ -1780,6 +1780,11 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 var ucFirst = function ucFirst(str) {
   return "" + str[0].toUpperCase() + str.slice(1);
 };
+var toStringEquals = function toStringEquals() {
+  var first = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+  var second = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+  return first.toLowerCase() === second.toLowerCase();
+};
 var contains = function contains(text, filter) {
   return filter ? text.toLowerCase().includes(filter.toLowerCase()) : true;
 };
@@ -1787,14 +1792,15 @@ var contains = function contains(text, filter) {
 var template = function template(_ref) {
   var items = _ref.items,
       selectItem = _ref.selectItem,
-      criteria = _ref.criteria;
+      criteria = _ref.criteria,
+      selectedItem = _ref.selectedItem;
   return _framework2.default.div(_templateObject, _framework2.default.className({ "list-group": true }), _framework2.default.forEach(items, function (item) {
     return contains(item.name, criteria) ? _framework2.default.a(_templateObject2, _framework2.default.onClick(function () {
       return selectItem(item);
     }), _framework2.default.className({
       "list-group-item": true,
       "list-group-item-action": true,
-      active: item.selected
+      active: toStringEquals(item.name, selectedItem.item.name)
     }), ucFirst(item.name)) : "";
   }));
 };
@@ -1864,6 +1870,7 @@ var state = {
   appName: "Pokeworld",
   pageTitle: "Research results",
   resultSet: [],
+  selectedItem: { item: {}, details: {} },
   filter: ""
 };
 
@@ -1876,14 +1883,22 @@ var methods = {
   },
   selectItem: function selectItem(state, item) {
     return _extends({}, state, {
-      resultSet: state.resultSet.map(function (i) {
-        return i.name === item.name ? _extends({}, i, { selected: !i.selected }) : _extends({}, i, { selected: false });
-      })
+      selectedItem: { item: item, details: {} }
     });
   },
   filter: function filter(state, _filter) {
     return _extends({}, state, { filter: _filter });
   }
+};
+
+var fetchDetails = function fetchDetails(selectItem) {
+  return function (item) {
+    selectItem(item);
+    return Promise.resolve({
+      name: "Bulbasaur",
+      weight: 69
+    });
+  };
 };
 
 var onLoad = function onLoad(_ref) {
@@ -1967,13 +1982,15 @@ var template = function template(_ref2) {
   var appName = _ref2.appName,
       pageTitle = _ref2.pageTitle,
       resultSet = _ref2.resultSet,
+      selectedItem = _ref2.selectedItem,
       filter = _ref2.filter,
       methods = _ref2.methods;
 
   return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName, handleSearch: methods.filter }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" })), resultSet.length ? (0, _list.List)({
     items: resultSet,
-    selectItem: methods.selectItem,
-    criteria: filter
+    selectItem: fetchDetails(methods.selectItem),
+    criteria: filter,
+    selectedItem: selectedItem
   }) : (0, _loader.Loader)()));
 };
 
@@ -1990,7 +2007,7 @@ var _app = require("./src/app");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _framework2.default.initApplication("#app", (0, _app.App)());
-},{"./framework":8,"./src/app":6}],72:[function(require,module,exports) {
+},{"./framework":8,"./src/app":6}],74:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -2159,5 +2176,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[72,4])
+},{}]},{},[74,4])
 //# sourceMappingURL=/framework-examples.d9c2299e.map

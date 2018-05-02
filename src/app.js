@@ -8,6 +8,7 @@ const state = {
   appName: "Pokeworld",
   pageTitle: "Research results",
   resultSet: [],
+  selectedItem: { item: {}, details: {} },
   filter: ""
 };
 
@@ -16,14 +17,17 @@ const methods = {
   changeResultSet: (state, resultSet) => ({ ...state, resultSet }),
   selectItem: (state, item) => ({
     ...state,
-    resultSet: state.resultSet.map(
-      i =>
-        i.name === item.name
-          ? { ...i, selected: !i.selected }
-          : { ...i, selected: false }
-    )
+    selectedItem: { item, details: {} }
   }),
   filter: (state, filter) => ({ ...state, filter })
+};
+
+const fetchDetails = selectItem => item => {
+  selectItem(item);
+  return Promise.resolve({
+    name: "Bulbasaur",
+    weight: 69
+  });
 };
 
 const onLoad = ({ changeResultSet }) =>
@@ -120,7 +124,14 @@ const onLoad = ({ changeResultSet }) =>
 //       changeResultSet(res.map(item => ({ ...item, selected: false })))
 //     );
 
-const template = ({ appName, pageTitle, resultSet, filter, methods }) => {
+const template = ({
+  appName,
+  pageTitle,
+  resultSet,
+  selectedItem,
+  filter,
+  methods
+}) => {
   return _.div`
   ${Navbar({ title: appName, handleSearch: methods.filter })}
   ${_.div`
@@ -132,8 +143,9 @@ const template = ({ appName, pageTitle, resultSet, filter, methods }) => {
         resultSet.length
           ? List({
               items: resultSet,
-              selectItem: methods.selectItem,
-              criteria: filter
+              selectItem: fetchDetails(methods.selectItem),
+              criteria: filter,
+              selectedItem
             })
           : Loader()
       }
