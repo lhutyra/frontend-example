@@ -5,8 +5,7 @@
   "author": "mfrachet <marvin.frachet@zenika.com>",
   "license": "MIT",
   "scripts": {
-    "build":
-      "rm -rf docs/ && parcel build index.html -d docs/ --public-url frontend-example",
+    "build": "rm -rf docs/ && parcel build index.html -d docs/ --public-url ./",
     "serve": "rm -rf .cache && rm -rf dist && parcel serve index.html"
   },
   "dependencies": {
