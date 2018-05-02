@@ -1602,7 +1602,7 @@ var elementReducer = exports.elementReducer = function elementReducer(args, elem
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.input = exports.form = exports.li = exports.ul = exports.nav = exports.a = exports.button = exports.img = exports.span = exports.h5 = exports.h2 = exports.h1 = exports.div = undefined;
+exports.input = exports.form = exports.li = exports.ul = exports.nav = exports.a = exports.button = exports.img = exports.span = exports.h5 = exports.h2 = exports.h1 = exports.p = exports.div = undefined;
 
 var _node = require("../core/node");
 
@@ -1625,6 +1625,7 @@ var createElement = function createElement(elementName) {
 };
 
 var div = exports.div = createElement("div");
+var p = exports.p = createElement("p");
 var h1 = exports.h1 = createElement("h1");
 var h2 = exports.h2 = createElement("h2");
 var h5 = exports.h5 = createElement("h5");
@@ -1756,7 +1757,7 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 var template = function template(_ref) {
 	var value = _ref.value;
-	return _framework2.default.span(_templateObject, _framework2.default.className({ label: true, "label-default": true }), value);
+	return _framework2.default.span(_templateObject, _framework2.default.className({ badge: true, "badge-secondary": true }), value);
 };
 
 var Label = exports.Label = _framework2.default.createComponent({ template: template });
@@ -1846,7 +1847,35 @@ var template = function template(_ref) {
 };
 
 var Loader = exports.Loader = _framework2.default.createComponent({ template: template });
-},{"../framework":8,"./loader.gif":32}],14:[function(require,module,exports) {
+},{"../framework":8,"./loader.gif":32}],77:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.Types = undefined;
+
+var _templateObject = _taggedTemplateLiteral(["\n\t", " is a pokemon of types: ", "\n"], ["\n\t", " is a pokemon of types: ", "\n"]);
+
+var _framework = require("../framework");
+
+var _framework2 = _interopRequireDefault(_framework);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var template = function template(_ref) {
+	var name = _ref.name,
+	    _ref$types = _ref.types,
+	    types = _ref$types === undefined ? [] : _ref$types;
+	return _framework2.default.p(_templateObject, name, types.map(function (type) {
+		return type.type.name;
+	}).join(", "));
+};
+
+var Types = exports.Types = _framework2.default.createComponent({ template: template });
+},{"../framework":8}],14:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1857,7 +1886,9 @@ exports.Card = undefined;
 var _templateObject = _taggedTemplateLiteral(["\n\t", "\n\t\n\t", "\n\t", "\n"], ["\n\t", "\n\t\n\t", "\n\t", "\n"]),
     _templateObject2 = _taggedTemplateLiteral(["\n\t\t", "\n\t\t", "\n\t"], ["\n\t\t", "\n\t\t", "\n\t"]),
     _templateObject3 = _taggedTemplateLiteral(["\n\t\t\t", "\n\t\t\t", "\n\t\t\t", "\n\t\t"], ["\n\t\t\t", "\n\t\t\t", "\n\t\t\t", "\n\t\t"]),
-    _templateObject4 = _taggedTemplateLiteral(["\n\t\t\t", "\n\t\t\t", "\n\t\t"], ["\n\t\t\t", "\n\t\t\t", "\n\t\t"]);
+    _templateObject4 = _taggedTemplateLiteral(["\n\t\t", "\n\t\t", "\n\t\t", "\n\t"], ["\n\t\t", "\n\t\t", "\n\t\t", "\n\t"]),
+    _templateObject5 = _taggedTemplateLiteral(["\n\t\t\t", "\n\t\t\t", "\n\t\t"], ["\n\t\t\t", "\n\t\t\t", "\n\t\t"]),
+    _templateObject6 = _taggedTemplateLiteral(["", ""], ["", ""]);
 
 var _framework = require("../framework");
 
@@ -1865,18 +1896,21 @@ var _framework2 = _interopRequireDefault(_framework);
 
 var _loader = require("./loader");
 
+var _types = require("./types");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var template = function template(_ref) {
 	var title = _ref.title,
-	    image = _ref.image;
-	return _framework2.default.div(_templateObject, _framework2.default.className({ card: true }), _framework2.default.div(_templateObject2, _framework2.default.style({ backgroundColor: "#efefef", textAlign: "center" }), image ? _framework2.default.img(_templateObject3, _framework2.default.className({ "card-img-top": true }), _framework2.default.style({ height: "128px", width: "128px" }), _framework2.default.props({ src: image })) : (0, _loader.Loader)({ size: "small" })), _framework2.default.div(_templateObject2, _framework2.default.className({ "card-body": true }), _framework2.default.h5(_templateObject4, _framework2.default.className({ "card-title": true }), title)));
+	    image = _ref.image,
+	    types = _ref.types;
+	return _framework2.default.div(_templateObject, _framework2.default.className({ card: true }), _framework2.default.div(_templateObject2, _framework2.default.style({ backgroundColor: "#efefef", textAlign: "center" }), image ? _framework2.default.img(_templateObject3, _framework2.default.className({ "card-img-top": true }), _framework2.default.style({ height: "128px", width: "128px" }), _framework2.default.props({ src: image })) : (0, _loader.Loader)({ size: "small" })), _framework2.default.div(_templateObject4, _framework2.default.className({ "card-body": true }), _framework2.default.h5(_templateObject5, _framework2.default.className({ "card-title": true }), title), _framework2.default.div(_templateObject6, (0, _types.Types)({ name: title, types: types }))));
 };
 
 var Card = exports.Card = _framework2.default.createComponent({ template: template });
-},{"../framework":8,"./loader":13}],6:[function(require,module,exports) {
+},{"../framework":8,"./loader":13,"./types":77}],6:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1888,7 +1922,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _templateObject = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  "], ["\n  ", "\n  ", "\n  "]),
     _templateObject2 = _taggedTemplateLiteral(["\n      ", "\n      ", "\n      ", "\n    "], ["\n      ", "\n      ", "\n      ", "\n    "]),
-    _templateObject3 = _taggedTemplateLiteral(["", "\n        ", "\n      "], ["", "\n        ", "\n      "]),
+    _templateObject3 = _taggedTemplateLiteral(["", "\n        ", "\n        ", "\n      "], ["", "\n        ", "\n        ", "\n      "]),
     _templateObject4 = _taggedTemplateLiteral(["\n          ", "\n            ", "\n          ", "\n      "], ["\n          ", "\n            ", "\n          ", "\n      "]),
     _templateObject5 = _taggedTemplateLiteral(["\n              ", "\n              ", "\n          "], ["\n              ", "\n              ", "\n          "]),
     _templateObject6 = _taggedTemplateLiteral(["\n                ", "\n                ", "\n              "], ["\n                ", "\n                ", "\n              "]);
@@ -2081,7 +2115,7 @@ var template = function template(_ref4) {
       filter = _ref4.filter,
       methods = _ref4.methods;
 
-  return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName, handleSearch: methods.filter }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" })), resultSet.length ? _framework2.default.div(_templateObject4, _framework2.default.className({ row: true }), _framework2.default.div(_templateObject5, _framework2.default.className({
+  return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName, handleSearch: methods.filter }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, _framework2.default.style({ marginTop: "30px", marginBottom: "30px" }), (0, _label.Label)({ value: resultSet.length + " found" })), resultSet.length ? _framework2.default.div(_templateObject4, _framework2.default.className({ row: true }), _framework2.default.div(_templateObject5, _framework2.default.className({
     "col-10": !!selectedItem.item.name,
     "col-12": !!!selectedItem.item.name
   }), (0, _list.List)({
@@ -2091,7 +2125,8 @@ var template = function template(_ref4) {
     selectedItem: selectedItem
   })), selectedItem.item.name && _framework2.default.div(_templateObject6, _framework2.default.className({ "col-2": true }), (0, _card.Card)({
     title: selectedItem.item.name,
-    image: selectedItem.details.sprites ? selectedItem.details.sprites.front_default : null
+    image: selectedItem.details.sprites ? selectedItem.details.sprites.front_default : null,
+    types: selectedItem.details.types
   }))) : (0, _loader.Loader)()));
 };
 
@@ -2108,7 +2143,7 @@ var _app = require("./src/app");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _framework2.default.initApplication("#app", (0, _app.App)());
-},{"./framework":8,"./src/app":6}],76:[function(require,module,exports) {
+},{"./framework":8,"./src/app":6}],78:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -2277,5 +2312,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[76,4])
+},{}]},{},[78,4])
 //# sourceMappingURL=/framework-examples.d9c2299e.map

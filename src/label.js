@@ -1,7 +1,7 @@
 import _ from "../framework";
 
 const template = ({ value }) => _.span`
-	${_.className({ label: true, "label-default": true })}
+	${_.className({ badge: true, "badge-secondary": true })}
 	${value}
 `;
 

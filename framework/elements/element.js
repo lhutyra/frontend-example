@@ -12,6 +12,7 @@ const createElement = elementName => (strings, ...args) => {
 };
 
 export const div = createElement("div");
+export const p = createElement("p");
 export const h1 = createElement("h1");
 export const h2 = createElement("h2");
 export const h5 = createElement("h5");

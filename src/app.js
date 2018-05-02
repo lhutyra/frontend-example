@@ -163,6 +163,7 @@ const template = ({
   ${_.div`
       ${_.className({ container: true })}
       ${_.h2`${pageTitle}
+        ${_.style({ marginTop: "30px", marginBottom: "30px" })}
         ${Label({ value: `${resultSet.length} found` })}
       `}
       ${
@@ -188,7 +189,8 @@ const template = ({
                   title: selectedItem.item.name,
                   image: selectedItem.details.sprites
                     ? selectedItem.details.sprites.front_default
-                    : null
+                    : null,
+                  types: selectedItem.details.types
                 })}
               `}
       `

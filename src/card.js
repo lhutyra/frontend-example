@@ -1,7 +1,8 @@
 import _ from "../framework";
 import { Loader } from "./loader";
+import { Types } from "./types";
 
-const template = ({ title, image }) =>
+const template = ({ title, image, types }) =>
   _.div`
 	${_.className({ card: true })}
 	
@@ -23,6 +24,7 @@ const template = ({ title, image }) =>
 			${_.className({ "card-title": true })}
 			${title}
 		`}
+		${_.div`${Types({ name: title, types })}`}
 	`}
 `;
 
