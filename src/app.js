@@ -158,8 +158,8 @@ const template = ({
           ${_.className({ row: true })}
             ${_.div`
               ${_.className({
-                "col-md-8": !!selectedItem.details.name,
-                "col-md-12": !!!selectedItem.details.name
+                "col-10": !!selectedItem.details.name,
+                "col-12": !!!selectedItem.details.name
               })}
               ${List({
                 items: resultSet,
@@ -171,7 +171,7 @@ const template = ({
           ${
             selectedItem.details.name
               ? _.div`
-                ${_.className({ "col-md-4": true })}
+                ${_.className({ "col-2": true })}
                 ${Card({
                   title: selectedItem.details.name,
                   image: selectedItem.details.sprites.front_default

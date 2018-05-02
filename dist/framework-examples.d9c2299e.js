@@ -77,7 +77,7 @@ parcelRequire = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({60:[function(require,module,exports) {
+})({62:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91,7 +91,7 @@ function vnode(sel, data, children, text, elm) {
 }
 exports.default = vnode;
 //# sourceMappingURL=vnode.js.map
-},{}],61:[function(require,module,exports) {
+},{}],63:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -103,7 +103,7 @@ function primitive(s) {
     return typeof s === 'string' || typeof s === 'number';
 }
 //# sourceMappingURL=is.js.map
-},{}],62:[function(require,module,exports) {
+},{}],64:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -173,7 +173,7 @@ var htmlDomApi = exports.htmlDomApi = {
 };
 exports.default = htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
-},{}],63:[function(require,module,exports) {
+},{}],65:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -238,7 +238,7 @@ function h(sel, b, c) {
 ;
 exports.default = h;
 //# sourceMappingURL=h.js.map
-},{"./vnode":60,"./is":61}],64:[function(require,module,exports) {
+},{"./vnode":62,"./is":63}],66:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -295,7 +295,7 @@ var thunk = exports.thunk = function thunk(sel, key, fn, args) {
 };
 exports.default = thunk;
 //# sourceMappingURL=thunk.js.map
-},{"./h":63}],40:[function(require,module,exports) {
+},{"./h":65}],42:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -616,7 +616,7 @@ function init(modules, domApi) {
     };
 }
 //# sourceMappingURL=snabbdom.js.map
-},{"./vnode":60,"./is":61,"./htmldomapi":62,"./h":63,"./thunk":64}],52:[function(require,module,exports) {
+},{"./vnode":62,"./is":63,"./htmldomapi":64,"./h":65,"./thunk":66}],54:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function vnode(sel, data, children, text, elm) {
@@ -627,7 +627,7 @@ function vnode(sel, data, children, text, elm) {
 exports.vnode = vnode;
 exports.default = vnode;
 //# sourceMappingURL=vnode.js.map
-},{}],53:[function(require,module,exports) {
+},{}],55:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function createElement(tagName) {
@@ -694,7 +694,7 @@ exports.htmlDomApi = {
 };
 exports.default = exports.htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
-},{}],41:[function(require,module,exports) {
+},{}],43:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = require("./vnode");
@@ -739,7 +739,7 @@ function toVNode(node, domApi) {
 exports.toVNode = toVNode;
 exports.default = toVNode;
 //# sourceMappingURL=tovnode.js.map
-},{"./vnode":52,"./htmldomapi":53}],42:[function(require,module,exports) {
+},{"./vnode":54,"./htmldomapi":55}],44:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function invokeHandler(handler, vnode, event) {
@@ -835,7 +835,7 @@ exports.eventListenersModule = {
 };
 exports.default = exports.eventListenersModule;
 //# sourceMappingURL=eventlisteners.js.map
-},{}],43:[function(require,module,exports) {
+},{}],45:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function updateClass(oldVnode, vnode) {
@@ -861,7 +861,7 @@ function updateClass(oldVnode, vnode) {
 exports.classModule = { create: updateClass, update: updateClass };
 exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
-},{}],44:[function(require,module,exports) {
+},{}],46:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var raf = (typeof window !== 'undefined' && window.requestAnimationFrame) || setTimeout;
@@ -948,7 +948,7 @@ exports.styleModule = {
 };
 exports.default = exports.styleModule;
 //# sourceMappingURL=style.js.map
-},{}],45:[function(require,module,exports) {
+},{}],47:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function updateProps(oldVnode, vnode) {
@@ -975,7 +975,7 @@ function updateProps(oldVnode, vnode) {
 exports.propsModule = { create: updateProps, update: updateProps };
 exports.default = exports.propsModule;
 //# sourceMappingURL=props.js.map
-},{}],20:[function(require,module,exports) {
+},{}],21:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1001,7 +1001,7 @@ var patch = exports.patch = snabbdom.init([require("snabbdom/modules/eventlisten
 var initApplication = exports.initApplication = function initApplication(selector, vNode) {
   return patch((0, _tovnode2.default)(document.querySelector(selector)), vNode.element);
 };
-},{"snabbdom":40,"snabbdom/tovnode":41,"snabbdom/modules/eventlisteners":42,"snabbdom/modules/class":43,"snabbdom/modules/style":44,"snabbdom/modules/props":45}],18:[function(require,module,exports) {
+},{"snabbdom":42,"snabbdom/tovnode":43,"snabbdom/modules/eventlisteners":44,"snabbdom/modules/class":45,"snabbdom/modules/style":46,"snabbdom/modules/props":47}],20:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1058,7 +1058,7 @@ var createComponent = exports.createComponent = function createComponent(_ref) {
     return previous;
   };
 };
-},{"./vDom":20}],19:[function(require,module,exports) {
+},{"./vDom":21}],22:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1078,7 +1078,7 @@ var createEventHandlerFor = exports.createEventHandlerFor = function createEvent
 
 var onClick = exports.onClick = createEventHandlerFor("click");
 var keyUp = exports.keyUp = createEventHandlerFor("keyup");
-},{}],56:[function(require,module,exports) {
+},{}],58:[function(require,module,exports) {
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1344,7 +1344,7 @@ function isObject(arg) {
 function isUndefined(arg) {
   return arg === void 0;
 }
-},{}],34:[function(require,module,exports) {
+},{}],36:[function(require,module,exports) {
 // This file should be ES5 compatible
 /* eslint prefer-spread:0, no-var:0, prefer-reflect:0, no-magic-numbers:0 */
 'use strict';
@@ -1411,7 +1411,7 @@ module.exports = function () {
 	};
 	return domain;
 }.call(this);
-},{"events":56}],21:[function(require,module,exports) {
+},{"events":58}],23:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1437,7 +1437,7 @@ var createAttribute = function createAttribute(name) {
 var className = exports.className = createAttribute("class");
 var style = exports.style = createAttribute("style");
 var props = exports.props = createAttribute("props");
-},{"domain":34}],22:[function(require,module,exports) {
+},{"domain":36}],24:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1451,7 +1451,7 @@ var forEach = exports.forEach = function forEach(list, handler) {
     })
   };
 };
-},{}],70:[function(require,module,exports) {
+},{}],72:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.array = Array.isArray;
@@ -1460,7 +1460,7 @@ function primitive(s) {
 }
 exports.primitive = primitive;
 //# sourceMappingURL=is.js.map
-},{}],57:[function(require,module,exports) {
+},{}],59:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = require("./vnode");
@@ -1520,7 +1520,7 @@ exports.h = h;
 ;
 exports.default = h;
 //# sourceMappingURL=h.js.map
-},{"./vnode":52,"./is":70}],36:[function(require,module,exports) {
+},{"./vnode":54,"./is":72}],38:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1540,7 +1540,7 @@ var node = exports.node = function node(elementName, props, children) {
     element: (0, _h2.default)(elementName, props, children)
   };
 };
-},{"snabbdom/h":57}],37:[function(require,module,exports) {
+},{"snabbdom/h":59}],39:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1596,7 +1596,7 @@ var elementReducer = exports.elementReducer = function elementReducer(args, elem
     return actionHandlers[type](acc, templateString, currentArg);
   };
 };
-},{}],23:[function(require,module,exports) {
+},{}],25:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1635,7 +1635,7 @@ var ul = exports.ul = createElement("ul");
 var li = exports.li = createElement("li");
 var form = exports.form = createElement("form");
 var input = exports.input = createElement("input");
-},{"../core/node":36,"./element.reducer":37}],8:[function(require,module,exports) {
+},{"../core/node":38,"./element.reducer":39}],8:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1670,16 +1670,15 @@ exports.default = _extends({
   createComponent: _component.createComponent,
   initApplication: _vDom.initApplication
 }, elements, directives, attributes, events);
-},{"./core/component":18,"./core/vDom":20,"./directives/events":19,"./directives/attributes":21,"./directives/directives":22,"./elements/element":23}],31:[function(require,module,exports) {
+},{"./core/component":20,"./core/vDom":21,"./directives/events":22,"./directives/attributes":23,"./directives/directives":24,"./elements/element":25}],33:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 exports.Input = undefined;
 
-var _templateObject = _taggedTemplateLiteral(["", "\n\t", "\n"], ["", "\n\t", "\n"]),
-    _templateObject2 = _taggedTemplateLiteral(["", "\n\t", "\n\t", "\n\t"], ["", "\n\t", "\n\t", "\n\t"]);
+var _templateObject = _taggedTemplateLiteral(["", "\n", "\n", "\n"], ["", "\n", "\n", "\n"]);
 
 var _framework = require("../framework");
 
@@ -1691,12 +1690,13 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 var state = {};
 var template = function template(_ref) {
-	var handleKeyUp = _ref.handleKeyUp;
-	return _framework2.default.form(_templateObject, _framework2.default.className({
-		"form-group": true
-	}), _framework2.default.input(_templateObject2, _framework2.default.className({ "form-control": true }), _framework2.default.props({ type: "text", placeholder: "Search" }), _framework2.default.keyUp(function (e) {
-		return handleKeyUp(e.target.value);
-	})));
+  var handleKeyUp = _ref.handleKeyUp;
+  return _framework2.default.input(_templateObject, _framework2.default.className({
+    "form-control": true,
+    "mr-sm-2": true
+  }), _framework2.default.props({ type: "text", placeholder: "Search" }), _framework2.default.keyUp(function (e) {
+    return handleKeyUp(e.target.value);
+  }));
 };
 
 var Input = exports.Input = _framework2.default.createComponent({ template: template, state: state });
@@ -1712,9 +1712,8 @@ var _templateObject = _taggedTemplateLiteral(["\n\t", "\n\t", "\n"], ["\n\t", "\
     _templateObject2 = _taggedTemplateLiteral(["", "\n\t\t\t", "\n\t\t\t", "\n\t"], ["", "\n\t\t\t", "\n\t\t\t", "\n\t"]),
     _templateObject3 = _taggedTemplateLiteral(["", "\n\t\t\t\t", "\n\t\t\t"], ["", "\n\t\t\t\t", "\n\t\t\t"]),
     _templateObject4 = _taggedTemplateLiteral(["", "\n\t\t\t\t\t", "\n\t\t\t\t"], ["", "\n\t\t\t\t\t", "\n\t\t\t\t"]),
-    _templateObject5 = _taggedTemplateLiteral(["", "\n\t\t\t\t", "\n\t\t\t\t", "\n\t\t"], ["", "\n\t\t\t\t", "\n\t\t\t\t", "\n\t\t"]),
-    _templateObject6 = _taggedTemplateLiteral(["", ""], ["", ""]),
-    _templateObject7 = _taggedTemplateLiteral(["", "\n\t\t\t\t\t", "\n\t\t\t"], ["", "\n\t\t\t\t\t", "\n\t\t\t"]);
+    _templateObject5 = _taggedTemplateLiteral(["", "\n\t\t\t\t", "\n\t\t"], ["", "\n\t\t\t\t", "\n\t\t"]),
+    _templateObject6 = _taggedTemplateLiteral(["", "\n\t\t\t\t\t", "\n\t\t\t"], ["", "\n\t\t\t\t\t", "\n\t\t\t"]);
 
 var _framework = require("../framework");
 
@@ -1731,11 +1730,11 @@ var template = function template(_ref) {
 	var items = _ref.items,
 	    title = _ref.title,
 	    handleSearch = _ref.handleSearch;
-	return _framework2.default.nav(_templateObject, _framework2.default.className({ navbar: true, "navbar-default": true }), _framework2.default.div(_templateObject2, _framework2.default.className({ "container-fluid": true }), _framework2.default.div(_templateObject3, _framework2.default.className({ "navbar-header": true }), _framework2.default.a(_templateObject4, _framework2.default.className({ "navbar-brand": true }), title)), _framework2.default.div(_templateObject5, _framework2.default.className({ collapse: true, "navbar-collapse": true }), _framework2.default.ul(_templateObject6, _framework2.default.className({ nav: true, "navbar-nav": true })), _framework2.default.form(_templateObject7, _framework2.default.className({ "navbar-form": true, "navbar-left": true }), (0, _input.Input)({ handleKeyUp: handleSearch })))));
+	return _framework2.default.nav(_templateObject, _framework2.default.className({ navbar: true, "navbar-light": true, "bg-light": true }), _framework2.default.div(_templateObject2, _framework2.default.className({ "container-fluid": true }), _framework2.default.div(_templateObject3, _framework2.default.className({ "navbar-header": true }), _framework2.default.a(_templateObject4, _framework2.default.className({ "navbar-brand": true }), title)), _framework2.default.div(_templateObject5, _framework2.default.className({ collapse: true, "navbar-collapse": true }), _framework2.default.form(_templateObject6, _framework2.default.className({ "form-inline": true, "my-2": true, "my-lg-0": true }), (0, _input.Input)({ handleKeyUp: handleSearch })))));
 };
 
 var Navbar = exports.Navbar = _framework2.default.createComponent({ template: template, state: state });
-},{"../framework":8,"./input":31}],11:[function(require,module,exports) {
+},{"../framework":8,"./input":33}],11:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1804,7 +1803,7 @@ var template = function template(_ref) {
 };
 
 var List = exports.List = _framework2.default.createComponent({ template: template });
-},{"../framework":8}],30:[function(require,module,exports) {
+},{"../framework":8}],32:[function(require,module,exports) {
 module.exports="/loader.7b1f643d.gif";
 },{}],13:[function(require,module,exports) {
 "use strict";
@@ -1834,7 +1833,7 @@ var template = function template() {
 };
 
 var Loader = exports.Loader = _framework2.default.createComponent({ template: template });
-},{"../framework":8,"./loader.gif":30}],77:[function(require,module,exports) {
+},{"../framework":8,"./loader.gif":32}],14:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1843,8 +1842,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.Card = undefined;
 
 var _templateObject = _taggedTemplateLiteral(["\n\t", "\n\t", "\n\t", "\n"], ["\n\t", "\n\t", "\n\t", "\n"]),
-    _templateObject2 = _taggedTemplateLiteral(["\n\t\t", "\n\t\t", "\n\t"], ["\n\t\t", "\n\t\t", "\n\t"]),
-    _templateObject3 = _taggedTemplateLiteral(["\n\t\t\t", "\n\t\t\t", "\n\t\t"], ["\n\t\t\t", "\n\t\t\t", "\n\t\t"]);
+    _templateObject2 = _taggedTemplateLiteral(["\n\t\t", "\n\t\t", "\n\t\t", "\n\t"], ["\n\t\t", "\n\t\t", "\n\t\t", "\n\t"]),
+    _templateObject3 = _taggedTemplateLiteral(["\n\t\t", "\n\t\t", "\n\t"], ["\n\t\t", "\n\t\t", "\n\t"]),
+    _templateObject4 = _taggedTemplateLiteral(["\n\t\t\t", "\n\t\t\t", "\n\t\t"], ["\n\t\t\t", "\n\t\t\t", "\n\t\t"]);
 
 var _framework = require("../framework");
 
@@ -1857,7 +1857,7 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 var template = function template(_ref) {
 	var title = _ref.title,
 	    image = _ref.image;
-	return _framework2.default.div(_templateObject, _framework2.default.className({ card: true }), _framework2.default.img(_templateObject2, _framework2.default.className({ "card-img-top": true }), _framework2.default.props({ src: image })), _framework2.default.div(_templateObject2, _framework2.default.className({ "card-body": true }), _framework2.default.h5(_templateObject3, _framework2.default.className({ "card-title": true }), title)));
+	return _framework2.default.div(_templateObject, _framework2.default.className({ card: true }), _framework2.default.img(_templateObject2, _framework2.default.className({ "card-img-top": true }), _framework2.default.style({ backgroundColor: "#efefef" }), _framework2.default.props({ src: image })), _framework2.default.div(_templateObject3, _framework2.default.className({ "card-body": true }), _framework2.default.h5(_templateObject4, _framework2.default.className({ "card-title": true }), title)));
 };
 
 var Card = exports.Card = _framework2.default.createComponent({ template: template });
@@ -2031,21 +2031,21 @@ var template = function template(_ref3) {
       methods = _ref3.methods;
 
   return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName, handleSearch: methods.filter }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" })), resultSet.length ? _framework2.default.div(_templateObject4, _framework2.default.className({ row: true }), _framework2.default.div(_templateObject5, _framework2.default.className({
-    "col-md-8": !!selectedItem.details.name,
-    "col-md-12": !!!selectedItem.details.name
+    "col-10": !!selectedItem.details.name,
+    "col-12": !!!selectedItem.details.name
   }), (0, _list.List)({
     items: resultSet,
     selectItem: fetchDetails(methods),
     criteria: filter,
     selectedItem: selectedItem
-  })), selectedItem.details.name ? _framework2.default.div(_templateObject6, _framework2.default.className({ "col-md-4": true }), (0, _card.Card)({
+  })), selectedItem.details.name ? _framework2.default.div(_templateObject6, _framework2.default.className({ "col-2": true }), (0, _card.Card)({
     title: selectedItem.details.name,
     image: selectedItem.details.sprites.front_default
   })) : "") : (0, _loader.Loader)()));
 };
 
 var App = exports.App = _framework2.default.createComponent({ template: template, state: state, methods: methods, onLoad: onLoad });
-},{"../framework":8,"./navbar":10,"./label":11,"./list":12,"./loader":13,"./card":77}],4:[function(require,module,exports) {
+},{"../framework":8,"./navbar":10,"./label":11,"./list":12,"./loader":13,"./card":14}],4:[function(require,module,exports) {
 "use strict";
 
 var _framework = require("./framework");
@@ -2057,7 +2057,7 @@ var _app = require("./src/app");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _framework2.default.initApplication("#app", (0, _app.App)());
-},{"./framework":8,"./src/app":6}],80:[function(require,module,exports) {
+},{"./framework":8,"./src/app":6}],74:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -2087,7 +2087,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '52871' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '62393' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -2226,5 +2226,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[80,4])
+},{}]},{},[74,4])
 //# sourceMappingURL=/framework-examples.d9c2299e.map

@@ -5,6 +5,7 @@ const template = ({ title, image }) =>
 	${_.className({ card: true })}
 	${_.img`
 		${_.className({ "card-img-top": true })}
+		${_.style({ backgroundColor: "#efefef" })}
 		${_.props({ src: image })}
 	`}
 	${_.div`
