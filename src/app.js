@@ -3,6 +3,7 @@ import { Navbar } from "./navbar";
 import { Label } from "./label";
 import { List } from "./list";
 import { Loader } from "./loader";
+import { Card } from "./card";
 
 const state = {
   appName: "Pokeworld",
@@ -15,20 +16,26 @@ const state = {
 const methods = {
   onLoad: methods => fetchPokemon(methods.changeResultSet),
   changeResultSet: (state, resultSet) => ({ ...state, resultSet }),
-  selectItem: (state, item) => ({
+  optimistSelectItem: (state, item) => ({
     ...state,
     selectedItem: { item, details: {} }
+  }),
+  setDetails: (state, details) => ({
+    ...state,
+    selectedItem: { ...state.selectedItem, details }
   }),
   filter: (state, filter) => ({ ...state, filter })
 };
 
-const fetchDetails = selectItem => item => {
+const fetchDetails = (selectItem, setDetails) => item => {
   selectItem(item);
   return Promise.resolve({
-    name: "Bulbasaur",
+    name: item.name,
     weight: 69
-  });
+  }).then(setDetails);
 };
+
+const ucFirst = str => `${str[0].toUpperCase()}${str.slice(1)}`;
 
 const onLoad = ({ changeResultSet }) =>
   Promise.resolve([
@@ -113,7 +120,9 @@ const onLoad = ({ changeResultSet }) =>
       name: "raticate"
     }
   ]).then(res =>
-    changeResultSet(res.map(item => ({ ...item, selected: false })))
+    changeResultSet(
+      res.map(item => ({ ...item, name: ucFirst(item.name), selected: false }))
+    )
   );
 
 // const onLoad = ({ changeResultSet }) =>
@@ -140,10 +149,18 @@ const template = ({
         ${Label({ value: `${resultSet.length} found` })}
       `}
       ${
+        selectedItem.details.name
+          ? Card({ title: selectedItem.details.name })
+          : ""
+      }
+      ${
         resultSet.length
           ? List({
               items: resultSet,
-              selectItem: fetchDetails(methods.selectItem),
+              selectItem: fetchDetails(
+                methods.optimistSelectItem,
+                methods.setDetails
+              ),
               criteria: filter,
               selectedItem
             })

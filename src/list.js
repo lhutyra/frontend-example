@@ -1,6 +1,5 @@
 import _ from "../framework";
 
-const ucFirst = str => `${str[0].toUpperCase()}${str.slice(1)}`;
 const toStringEquals = (first = "", second = "") =>
   first.toLowerCase() === second.toLowerCase();
 const contains = (text, filter) =>
@@ -17,7 +16,7 @@ const template = ({ items, selectItem, criteria, selectedItem }) => _.div`
        "list-group-item": true,
        "list-group-item-action": true,
        active: toStringEquals(item.name, selectedItem.item.name)
-     })}${ucFirst(item.name)}`
+     })}${item.name}`
         : ""
   )}
 	`;

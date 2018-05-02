@@ -1602,7 +1602,7 @@ var elementReducer = exports.elementReducer = function elementReducer(args, elem
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.input = exports.form = exports.li = exports.ul = exports.nav = exports.a = exports.button = exports.img = exports.span = exports.h2 = exports.h1 = exports.div = undefined;
+exports.input = exports.form = exports.li = exports.ul = exports.nav = exports.a = exports.button = exports.img = exports.span = exports.h5 = exports.h2 = exports.h1 = exports.div = undefined;
 
 var _node = require("../core/node");
 
@@ -1625,6 +1625,7 @@ var createElement = function createElement(elementName) {
 var div = exports.div = createElement("div");
 var h1 = exports.h1 = createElement("h1");
 var h2 = exports.h2 = createElement("h2");
+var h5 = exports.h5 = createElement("h5");
 var span = exports.span = createElement("span");
 var img = exports.img = createElement("img");
 var button = exports.button = createElement("button");
@@ -1777,9 +1778,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var ucFirst = function ucFirst(str) {
-  return "" + str[0].toUpperCase() + str.slice(1);
-};
 var toStringEquals = function toStringEquals() {
   var first = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
   var second = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
@@ -1801,7 +1799,7 @@ var template = function template(_ref) {
       "list-group-item": true,
       "list-group-item-action": true,
       active: toStringEquals(item.name, selectedItem.item.name)
-    }), ucFirst(item.name)) : "";
+    }), item.name) : "";
   }));
 };
 
@@ -1836,7 +1834,34 @@ var template = function template() {
 };
 
 var Loader = exports.Loader = _framework2.default.createComponent({ template: template });
-},{"../framework":8,"./loader.gif":30}],6:[function(require,module,exports) {
+},{"../framework":8,"./loader.gif":30}],77:[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+exports.Card = undefined;
+
+var _templateObject = _taggedTemplateLiteral(["\n\t", "\n\t", "\n\t", "\n"], ["\n\t", "\n\t", "\n\t", "\n"]),
+    _templateObject2 = _taggedTemplateLiteral(["", ""], ["", ""]),
+    _templateObject3 = _taggedTemplateLiteral(["\n\t\t", "\n\t\t", "\n\t"], ["\n\t\t", "\n\t\t", "\n\t"]),
+    _templateObject4 = _taggedTemplateLiteral(["\n\t\t\t", "\n\t\t\t", "\n\t\t"], ["\n\t\t\t", "\n\t\t\t", "\n\t\t"]);
+
+var _framework = require("../framework");
+
+var _framework2 = _interopRequireDefault(_framework);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+var template = function template(_ref) {
+	var title = _ref.title;
+	return _framework2.default.div(_templateObject, _framework2.default.className({ card: true }), _framework2.default.img(_templateObject2, _framework2.default.className({ "card-img-top": true })), _framework2.default.div(_templateObject3, _framework2.default.className({ "card-body": true }), _framework2.default.h5(_templateObject4, _framework2.default.className({ "card-title": true }), title)));
+};
+
+var Card = exports.Card = _framework2.default.createComponent({ template: template });
+},{"../framework":8}],6:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1847,7 +1872,7 @@ exports.App = undefined;
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _templateObject = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  "], ["\n  ", "\n  ", "\n  "]),
-    _templateObject2 = _taggedTemplateLiteral(["\n      ", "\n      ", "\n      ", "\n    "], ["\n      ", "\n      ", "\n      ", "\n    "]),
+    _templateObject2 = _taggedTemplateLiteral(["\n      ", "\n      ", "\n      ", "\n      ", "\n    "], ["\n      ", "\n      ", "\n      ", "\n      ", "\n    "]),
     _templateObject3 = _taggedTemplateLiteral(["", "\n        ", "\n      "], ["", "\n        ", "\n      "]);
 
 var _framework = require("../framework");
@@ -1861,6 +1886,8 @@ var _label = require("./label");
 var _list = require("./list");
 
 var _loader = require("./loader");
+
+var _card = require("./card");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1881,9 +1908,14 @@ var methods = {
   changeResultSet: function changeResultSet(state, resultSet) {
     return _extends({}, state, { resultSet: resultSet });
   },
-  selectItem: function selectItem(state, item) {
+  optimistSelectItem: function optimistSelectItem(state, item) {
     return _extends({}, state, {
       selectedItem: { item: item, details: {} }
+    });
+  },
+  setDetails: function setDetails(state, details) {
+    return _extends({}, state, {
+      selectedItem: _extends({}, state.selectedItem, { details: details })
     });
   },
   filter: function filter(state, _filter) {
@@ -1891,14 +1923,18 @@ var methods = {
   }
 };
 
-var fetchDetails = function fetchDetails(selectItem) {
+var fetchDetails = function fetchDetails(selectItem, setDetails) {
   return function (item) {
     selectItem(item);
     return Promise.resolve({
-      name: "Bulbasaur",
+      name: item.name,
       weight: 69
-    });
+    }).then(setDetails);
   };
+};
+
+var ucFirst = function ucFirst(str) {
+  return "" + str[0].toUpperCase() + str.slice(1);
 };
 
 var onLoad = function onLoad(_ref) {
@@ -1965,7 +2001,7 @@ var onLoad = function onLoad(_ref) {
     name: "raticate"
   }]).then(function (res) {
     return changeResultSet(res.map(function (item) {
-      return _extends({}, item, { selected: false });
+      return _extends({}, item, { name: ucFirst(item.name), selected: false });
     }));
   });
 };
@@ -1986,16 +2022,16 @@ var template = function template(_ref2) {
       filter = _ref2.filter,
       methods = _ref2.methods;
 
-  return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName, handleSearch: methods.filter }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" })), resultSet.length ? (0, _list.List)({
+  return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName, handleSearch: methods.filter }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" })), selectedItem.details.name ? (0, _card.Card)({ title: selectedItem.details.name }) : "", resultSet.length ? (0, _list.List)({
     items: resultSet,
-    selectItem: fetchDetails(methods.selectItem),
+    selectItem: fetchDetails(methods.optimistSelectItem, methods.setDetails),
     criteria: filter,
     selectedItem: selectedItem
   }) : (0, _loader.Loader)()));
 };
 
 var App = exports.App = _framework2.default.createComponent({ template: template, state: state, methods: methods, onLoad: onLoad });
-},{"../framework":8,"./navbar":10,"./label":11,"./list":12,"./loader":13}],4:[function(require,module,exports) {
+},{"../framework":8,"./navbar":10,"./label":11,"./list":12,"./loader":13,"./card":77}],4:[function(require,module,exports) {
 "use strict";
 
 var _framework = require("./framework");
@@ -2007,7 +2043,7 @@ var _app = require("./src/app");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _framework2.default.initApplication("#app", (0, _app.App)());
-},{"./framework":8,"./src/app":6}],74:[function(require,module,exports) {
+},{"./framework":8,"./src/app":6}],79:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -2176,5 +2212,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[74,4])
+},{}]},{},[79,4])
 //# sourceMappingURL=/framework-examples.d9c2299e.map
