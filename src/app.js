@@ -27,11 +27,15 @@ const methods = {
   filter: (state, filter) => ({ ...state, filter })
 };
 
-const fetchDetails = (selectItem, setDetails) => item => {
-  selectItem(item);
+const fetchDetails = ({ optimistSelectItem, setDetails }) => item => {
+  optimistSelectItem(item);
   return Promise.resolve({
     name: item.name,
-    weight: 69
+    weight: 69,
+    sprites: {
+      front_default:
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+    }
   }).then(setDetails);
 };
 
@@ -149,21 +153,33 @@ const template = ({
         ${Label({ value: `${resultSet.length} found` })}
       `}
       ${
-        selectedItem.details.name
-          ? Card({ title: selectedItem.details.name })
-          : ""
-      }
-      ${
         resultSet.length
-          ? List({
-              items: resultSet,
-              selectItem: fetchDetails(
-                methods.optimistSelectItem,
-                methods.setDetails
-              ),
-              criteria: filter,
-              selectedItem
-            })
+          ? _.div`
+          ${_.className({ row: true })}
+            ${_.div`
+              ${_.className({
+                "col-md-8": !!selectedItem.details.name,
+                "col-md-12": !!!selectedItem.details.name
+              })}
+              ${List({
+                items: resultSet,
+                selectItem: fetchDetails(methods),
+                criteria: filter,
+                selectedItem
+              })}
+          `}
+          ${
+            selectedItem.details.name
+              ? _.div`
+                ${_.className({ "col-md-4": true })}
+                ${Card({
+                  title: selectedItem.details.name,
+                  image: selectedItem.details.sprites.front_default
+                })}
+              `
+              : ""
+          }
+      `
           : Loader()
       }
     `}

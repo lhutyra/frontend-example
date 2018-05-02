@@ -1,9 +1,12 @@
 import _ from "../framework";
 
-const template = ({ title }) =>
+const template = ({ title, image }) =>
   _.div`
 	${_.className({ card: true })}
-	${_.img`${_.className({ "card-img-top": true })}`}
+	${_.img`
+		${_.className({ "card-img-top": true })}
+		${_.props({ src: image })}
+	`}
 	${_.div`
 		${_.className({ "card-body": true })}
 		${_.h5`

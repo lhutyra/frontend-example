@@ -1843,9 +1843,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.Card = undefined;
 
 var _templateObject = _taggedTemplateLiteral(["\n\t", "\n\t", "\n\t", "\n"], ["\n\t", "\n\t", "\n\t", "\n"]),
-    _templateObject2 = _taggedTemplateLiteral(["", ""], ["", ""]),
-    _templateObject3 = _taggedTemplateLiteral(["\n\t\t", "\n\t\t", "\n\t"], ["\n\t\t", "\n\t\t", "\n\t"]),
-    _templateObject4 = _taggedTemplateLiteral(["\n\t\t\t", "\n\t\t\t", "\n\t\t"], ["\n\t\t\t", "\n\t\t\t", "\n\t\t"]);
+    _templateObject2 = _taggedTemplateLiteral(["\n\t\t", "\n\t\t", "\n\t"], ["\n\t\t", "\n\t\t", "\n\t"]),
+    _templateObject3 = _taggedTemplateLiteral(["\n\t\t\t", "\n\t\t\t", "\n\t\t"], ["\n\t\t\t", "\n\t\t\t", "\n\t\t"]);
 
 var _framework = require("../framework");
 
@@ -1856,8 +1855,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var template = function template(_ref) {
-	var title = _ref.title;
-	return _framework2.default.div(_templateObject, _framework2.default.className({ card: true }), _framework2.default.img(_templateObject2, _framework2.default.className({ "card-img-top": true })), _framework2.default.div(_templateObject3, _framework2.default.className({ "card-body": true }), _framework2.default.h5(_templateObject4, _framework2.default.className({ "card-title": true }), title)));
+	var title = _ref.title,
+	    image = _ref.image;
+	return _framework2.default.div(_templateObject, _framework2.default.className({ card: true }), _framework2.default.img(_templateObject2, _framework2.default.className({ "card-img-top": true }), _framework2.default.props({ src: image })), _framework2.default.div(_templateObject2, _framework2.default.className({ "card-body": true }), _framework2.default.h5(_templateObject3, _framework2.default.className({ "card-title": true }), title)));
 };
 
 var Card = exports.Card = _framework2.default.createComponent({ template: template });
@@ -1872,8 +1872,11 @@ exports.App = undefined;
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _templateObject = _taggedTemplateLiteral(["\n  ", "\n  ", "\n  "], ["\n  ", "\n  ", "\n  "]),
-    _templateObject2 = _taggedTemplateLiteral(["\n      ", "\n      ", "\n      ", "\n      ", "\n    "], ["\n      ", "\n      ", "\n      ", "\n      ", "\n    "]),
-    _templateObject3 = _taggedTemplateLiteral(["", "\n        ", "\n      "], ["", "\n        ", "\n      "]);
+    _templateObject2 = _taggedTemplateLiteral(["\n      ", "\n      ", "\n      ", "\n    "], ["\n      ", "\n      ", "\n      ", "\n    "]),
+    _templateObject3 = _taggedTemplateLiteral(["", "\n        ", "\n      "], ["", "\n        ", "\n      "]),
+    _templateObject4 = _taggedTemplateLiteral(["\n          ", "\n            ", "\n          ", "\n      "], ["\n          ", "\n            ", "\n          ", "\n      "]),
+    _templateObject5 = _taggedTemplateLiteral(["\n              ", "\n              ", "\n          "], ["\n              ", "\n              ", "\n          "]),
+    _templateObject6 = _taggedTemplateLiteral(["\n                ", "\n                ", "\n              "], ["\n                ", "\n                ", "\n              "]);
 
 var _framework = require("../framework");
 
@@ -1923,12 +1926,17 @@ var methods = {
   }
 };
 
-var fetchDetails = function fetchDetails(selectItem, setDetails) {
+var fetchDetails = function fetchDetails(_ref) {
+  var optimistSelectItem = _ref.optimistSelectItem,
+      setDetails = _ref.setDetails;
   return function (item) {
-    selectItem(item);
+    optimistSelectItem(item);
     return Promise.resolve({
       name: item.name,
-      weight: 69
+      weight: 69,
+      sprites: {
+        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+      }
     }).then(setDetails);
   };
 };
@@ -1937,8 +1945,8 @@ var ucFirst = function ucFirst(str) {
   return "" + str[0].toUpperCase() + str.slice(1);
 };
 
-var onLoad = function onLoad(_ref) {
-  var changeResultSet = _ref.changeResultSet;
+var onLoad = function onLoad(_ref2) {
+  var changeResultSet = _ref2.changeResultSet;
   return Promise.resolve([{
     url: "https://pokeapi.co/api/v2/pokemon/1/",
     name: "bulbasaur"
@@ -2014,20 +2022,26 @@ var onLoad = function onLoad(_ref) {
 //       changeResultSet(res.map(item => ({ ...item, selected: false })))
 //     );
 
-var template = function template(_ref2) {
-  var appName = _ref2.appName,
-      pageTitle = _ref2.pageTitle,
-      resultSet = _ref2.resultSet,
-      selectedItem = _ref2.selectedItem,
-      filter = _ref2.filter,
-      methods = _ref2.methods;
+var template = function template(_ref3) {
+  var appName = _ref3.appName,
+      pageTitle = _ref3.pageTitle,
+      resultSet = _ref3.resultSet,
+      selectedItem = _ref3.selectedItem,
+      filter = _ref3.filter,
+      methods = _ref3.methods;
 
-  return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName, handleSearch: methods.filter }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" })), selectedItem.details.name ? (0, _card.Card)({ title: selectedItem.details.name }) : "", resultSet.length ? (0, _list.List)({
+  return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName, handleSearch: methods.filter }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" })), resultSet.length ? _framework2.default.div(_templateObject4, _framework2.default.className({ row: true }), _framework2.default.div(_templateObject5, _framework2.default.className({
+    "col-md-8": !!selectedItem.details.name,
+    "col-md-12": !!!selectedItem.details.name
+  }), (0, _list.List)({
     items: resultSet,
-    selectItem: fetchDetails(methods.optimistSelectItem, methods.setDetails),
+    selectItem: fetchDetails(methods),
     criteria: filter,
     selectedItem: selectedItem
-  }) : (0, _loader.Loader)()));
+  })), selectedItem.details.name ? _framework2.default.div(_templateObject6, _framework2.default.className({ "col-md-4": true }), (0, _card.Card)({
+    title: selectedItem.details.name,
+    image: selectedItem.details.sprites.front_default
+  })) : "") : (0, _loader.Loader)()));
 };
 
 var App = exports.App = _framework2.default.createComponent({ template: template, state: state, methods: methods, onLoad: onLoad });
@@ -2043,7 +2057,7 @@ var _app = require("./src/app");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _framework2.default.initApplication("#app", (0, _app.App)());
-},{"./framework":8,"./src/app":6}],79:[function(require,module,exports) {
+},{"./framework":8,"./src/app":6}],80:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -2212,5 +2226,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[79,4])
+},{}]},{},[80,4])
 //# sourceMappingURL=/framework-examples.d9c2299e.map
