@@ -7,7 +7,8 @@ import { Loader } from "./loader";
 const state = {
   appName: "Pokeworld",
   pageTitle: "Research results",
-  resultSet: []
+  resultSet: [],
+  filter: ""
 };
 
 const methods = {
@@ -21,20 +22,107 @@ const methods = {
           ? { ...i, selected: !i.selected }
           : { ...i, selected: false }
     )
-  })
+  }),
+  filter: (state, filter) => ({ ...state, filter })
 };
 
 const onLoad = ({ changeResultSet }) =>
-  fetch("https://pokeapi.co/api/v2/pokemon/")
-    .then(res => res.json())
-    .then(({ results }) => results)
-    .then(res =>
-      changeResultSet(res.map(item => ({ ...item, selected: false })))
-    );
+  Promise.resolve([
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/1/",
+      name: "bulbasaur"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/2/",
+      name: "ivysaur"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/3/",
+      name: "venusaur"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/4/",
+      name: "charmander"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/5/",
+      name: "charmeleon"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/6/",
+      name: "charizard"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/7/",
+      name: "squirtle"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/8/",
+      name: "wartortle"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/9/",
+      name: "blastoise"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/10/",
+      name: "caterpie"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/11/",
+      name: "metapod"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/12/",
+      name: "butterfree"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/13/",
+      name: "weedle"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/14/",
+      name: "kakuna"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/15/",
+      name: "beedrill"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/16/",
+      name: "pidgey"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/17/",
+      name: "pidgeotto"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/18/",
+      name: "pidgeot"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/19/",
+      name: "rattata"
+    },
+    {
+      url: "https://pokeapi.co/api/v2/pokemon/20/",
+      name: "raticate"
+    }
+  ]).then(res =>
+    changeResultSet(res.map(item => ({ ...item, selected: false })))
+  );
 
-const template = ({ appName, pageTitle, resultSet, methods }) => {
+// const onLoad = ({ changeResultSet }) =>
+//   fetch("https://pokeapi.co/api/v2/pokemon/")
+//     .then(res => res.json())
+//     .then(({ results }) => results)
+//     .then(res =>
+//       changeResultSet(res.map(item => ({ ...item, selected: false })))
+//     );
+
+const template = ({ appName, pageTitle, resultSet, filter, methods }) => {
   return _.div`
-  ${Navbar({ title: appName })}
+  ${Navbar({ title: appName, handleSearch: methods.filter })}
   ${_.div`
       ${_.className({ container: true })}
       ${_.h2`${pageTitle}
@@ -42,7 +130,11 @@ const template = ({ appName, pageTitle, resultSet, methods }) => {
       `}
       ${
         resultSet.length
-          ? List({ items: resultSet, selectItem: methods.selectItem })
+          ? List({
+              items: resultSet,
+              selectItem: methods.selectItem,
+              criteria: filter
+            })
           : Loader()
       }
     `}

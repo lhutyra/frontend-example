@@ -2,7 +2,7 @@ import _ from "../framework";
 import { Input } from "./input";
 
 const state = { items: ["Home", "About me"] };
-const template = ({ items, title }) => _.nav`
+const template = ({ items, title, handleSearch }) => _.nav`
 	${_.className({ navbar: true, "navbar-default": true })}
 	${_.div`${_.className({ "container-fluid": true })}
 			${_.div`${_.className({ "navbar-header": true })}
@@ -11,16 +11,9 @@ const template = ({ items, title }) => _.nav`
 				`}
 			`}
 			${_.div`${_.className({ collapse: true, "navbar-collapse": true })}
-				${_.ul`${_.className({ nav: true, "navbar-nav": true })}
-					${_.forEach(
-            items,
-            item => _.li`
-							${_.a`${item}`}
-						`
-          )}
-				`}
+				${_.ul`${_.className({ nav: true, "navbar-nav": true })}`}
 				${_.form`${_.className({ "navbar-form": true, "navbar-left": true })}
-					${Input()}
+					${Input({ handleKeyUp: handleSearch })}
 			`}
 		`}
 	`}

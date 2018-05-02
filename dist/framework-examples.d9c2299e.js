@@ -77,7 +77,7 @@ parcelRequire = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({58:[function(require,module,exports) {
+})({60:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -91,7 +91,7 @@ function vnode(sel, data, children, text, elm) {
 }
 exports.default = vnode;
 //# sourceMappingURL=vnode.js.map
-},{}],59:[function(require,module,exports) {
+},{}],61:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -103,7 +103,7 @@ function primitive(s) {
     return typeof s === 'string' || typeof s === 'number';
 }
 //# sourceMappingURL=is.js.map
-},{}],60:[function(require,module,exports) {
+},{}],62:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -173,7 +173,7 @@ var htmlDomApi = exports.htmlDomApi = {
 };
 exports.default = htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
-},{}],61:[function(require,module,exports) {
+},{}],63:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -238,7 +238,7 @@ function h(sel, b, c) {
 ;
 exports.default = h;
 //# sourceMappingURL=h.js.map
-},{"./vnode":58,"./is":59}],62:[function(require,module,exports) {
+},{"./vnode":60,"./is":61}],64:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -295,7 +295,7 @@ var thunk = exports.thunk = function thunk(sel, key, fn, args) {
 };
 exports.default = thunk;
 //# sourceMappingURL=thunk.js.map
-},{"./h":61}],38:[function(require,module,exports) {
+},{"./h":63}],40:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -616,7 +616,7 @@ function init(modules, domApi) {
     };
 }
 //# sourceMappingURL=snabbdom.js.map
-},{"./vnode":58,"./is":59,"./htmldomapi":60,"./h":61,"./thunk":62}],50:[function(require,module,exports) {
+},{"./vnode":60,"./is":61,"./htmldomapi":62,"./h":63,"./thunk":64}],52:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function vnode(sel, data, children, text, elm) {
@@ -627,7 +627,7 @@ function vnode(sel, data, children, text, elm) {
 exports.vnode = vnode;
 exports.default = vnode;
 //# sourceMappingURL=vnode.js.map
-},{}],51:[function(require,module,exports) {
+},{}],53:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function createElement(tagName) {
@@ -694,7 +694,7 @@ exports.htmlDomApi = {
 };
 exports.default = exports.htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
-},{}],39:[function(require,module,exports) {
+},{}],41:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = require("./vnode");
@@ -739,7 +739,7 @@ function toVNode(node, domApi) {
 exports.toVNode = toVNode;
 exports.default = toVNode;
 //# sourceMappingURL=tovnode.js.map
-},{"./vnode":50,"./htmldomapi":51}],40:[function(require,module,exports) {
+},{"./vnode":52,"./htmldomapi":53}],42:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function invokeHandler(handler, vnode, event) {
@@ -835,7 +835,7 @@ exports.eventListenersModule = {
 };
 exports.default = exports.eventListenersModule;
 //# sourceMappingURL=eventlisteners.js.map
-},{}],41:[function(require,module,exports) {
+},{}],43:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function updateClass(oldVnode, vnode) {
@@ -861,7 +861,7 @@ function updateClass(oldVnode, vnode) {
 exports.classModule = { create: updateClass, update: updateClass };
 exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
-},{}],42:[function(require,module,exports) {
+},{}],44:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var raf = (typeof window !== 'undefined' && window.requestAnimationFrame) || setTimeout;
@@ -948,7 +948,7 @@ exports.styleModule = {
 };
 exports.default = exports.styleModule;
 //# sourceMappingURL=style.js.map
-},{}],43:[function(require,module,exports) {
+},{}],45:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 function updateProps(oldVnode, vnode) {
@@ -975,7 +975,7 @@ function updateProps(oldVnode, vnode) {
 exports.propsModule = { create: updateProps, update: updateProps };
 exports.default = exports.propsModule;
 //# sourceMappingURL=props.js.map
-},{}],19:[function(require,module,exports) {
+},{}],20:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1001,7 +1001,7 @@ var patch = exports.patch = snabbdom.init([require("snabbdom/modules/eventlisten
 var initApplication = exports.initApplication = function initApplication(selector, vNode) {
   return patch((0, _tovnode2.default)(document.querySelector(selector)), vNode.element);
 };
-},{"snabbdom":38,"snabbdom/tovnode":39,"snabbdom/modules/eventlisteners":40,"snabbdom/modules/class":41,"snabbdom/modules/style":42,"snabbdom/modules/props":43}],18:[function(require,module,exports) {
+},{"snabbdom":40,"snabbdom/tovnode":41,"snabbdom/modules/eventlisteners":42,"snabbdom/modules/class":43,"snabbdom/modules/style":44,"snabbdom/modules/props":45}],18:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1058,7 +1058,7 @@ var createComponent = exports.createComponent = function createComponent(_ref) {
     return previous;
   };
 };
-},{"./vDom":19}],20:[function(require,module,exports) {
+},{"./vDom":20}],19:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1078,7 +1078,7 @@ var createEventHandlerFor = exports.createEventHandlerFor = function createEvent
 
 var onClick = exports.onClick = createEventHandlerFor("click");
 var keyUp = exports.keyUp = createEventHandlerFor("keyup");
-},{}],54:[function(require,module,exports) {
+},{}],56:[function(require,module,exports) {
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1344,7 +1344,7 @@ function isObject(arg) {
 function isUndefined(arg) {
   return arg === void 0;
 }
-},{}],32:[function(require,module,exports) {
+},{}],34:[function(require,module,exports) {
 // This file should be ES5 compatible
 /* eslint prefer-spread:0, no-var:0, prefer-reflect:0, no-magic-numbers:0 */
 'use strict';
@@ -1411,7 +1411,7 @@ module.exports = function () {
 	};
 	return domain;
 }.call(this);
-},{"events":54}],21:[function(require,module,exports) {
+},{"events":56}],21:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1437,7 +1437,7 @@ var createAttribute = function createAttribute(name) {
 var className = exports.className = createAttribute("class");
 var style = exports.style = createAttribute("style");
 var props = exports.props = createAttribute("props");
-},{"domain":32}],22:[function(require,module,exports) {
+},{"domain":34}],22:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1451,7 +1451,7 @@ var forEach = exports.forEach = function forEach(list, handler) {
     })
   };
 };
-},{}],68:[function(require,module,exports) {
+},{}],70:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.array = Array.isArray;
@@ -1460,7 +1460,7 @@ function primitive(s) {
 }
 exports.primitive = primitive;
 //# sourceMappingURL=is.js.map
-},{}],55:[function(require,module,exports) {
+},{}],57:[function(require,module,exports) {
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var vnode_1 = require("./vnode");
@@ -1520,7 +1520,7 @@ exports.h = h;
 ;
 exports.default = h;
 //# sourceMappingURL=h.js.map
-},{"./vnode":50,"./is":68}],34:[function(require,module,exports) {
+},{"./vnode":52,"./is":70}],36:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1540,7 +1540,7 @@ var node = exports.node = function node(elementName, props, children) {
     element: (0, _h2.default)(elementName, props, children)
   };
 };
-},{"snabbdom/h":55}],35:[function(require,module,exports) {
+},{"snabbdom/h":57}],37:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1634,7 +1634,7 @@ var ul = exports.ul = createElement("ul");
 var li = exports.li = createElement("li");
 var form = exports.form = createElement("form");
 var input = exports.input = createElement("input");
-},{"../core/node":34,"./element.reducer":35}],8:[function(require,module,exports) {
+},{"../core/node":36,"./element.reducer":37}],8:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1669,7 +1669,7 @@ exports.default = _extends({
   createComponent: _component.createComponent,
   initApplication: _vDom.initApplication
 }, elements, directives, attributes, events);
-},{"./core/component":18,"./core/vDom":19,"./directives/events":20,"./directives/attributes":21,"./directives/directives":22,"./elements/element":23}],30:[function(require,module,exports) {
+},{"./core/component":18,"./core/vDom":20,"./directives/events":19,"./directives/attributes":21,"./directives/directives":22,"./elements/element":23}],31:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1690,12 +1690,11 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 
 var state = {};
 var template = function template(_ref) {
-	var items = _ref.items,
-	    title = _ref.title;
+	var handleKeyUp = _ref.handleKeyUp;
 	return _framework2.default.form(_templateObject, _framework2.default.className({
 		"form-group": true
-	}), _framework2.default.input(_templateObject2, _framework2.default.className({ "form-control": true }), _framework2.default.props({ type: "text", placeholder: "Search" }), _framework2.default.keyUp(function () {
-		return console.log("lol");
+	}), _framework2.default.input(_templateObject2, _framework2.default.className({ "form-control": true }), _framework2.default.props({ type: "text", placeholder: "Search" }), _framework2.default.keyUp(function (e) {
+		return handleKeyUp(e.target.value);
 	})));
 };
 
@@ -1713,9 +1712,8 @@ var _templateObject = _taggedTemplateLiteral(["\n\t", "\n\t", "\n"], ["\n\t", "\
     _templateObject3 = _taggedTemplateLiteral(["", "\n\t\t\t\t", "\n\t\t\t"], ["", "\n\t\t\t\t", "\n\t\t\t"]),
     _templateObject4 = _taggedTemplateLiteral(["", "\n\t\t\t\t\t", "\n\t\t\t\t"], ["", "\n\t\t\t\t\t", "\n\t\t\t\t"]),
     _templateObject5 = _taggedTemplateLiteral(["", "\n\t\t\t\t", "\n\t\t\t\t", "\n\t\t"], ["", "\n\t\t\t\t", "\n\t\t\t\t", "\n\t\t"]),
-    _templateObject6 = _taggedTemplateLiteral(["\n\t\t\t\t\t\t\t", "\n\t\t\t\t\t\t"], ["\n\t\t\t\t\t\t\t", "\n\t\t\t\t\t\t"]),
-    _templateObject7 = _taggedTemplateLiteral(["", ""], ["", ""]),
-    _templateObject8 = _taggedTemplateLiteral(["", "\n\t\t\t\t\t", "\n\t\t\t"], ["", "\n\t\t\t\t\t", "\n\t\t\t"]);
+    _templateObject6 = _taggedTemplateLiteral(["", ""], ["", ""]),
+    _templateObject7 = _taggedTemplateLiteral(["", "\n\t\t\t\t\t", "\n\t\t\t"], ["", "\n\t\t\t\t\t", "\n\t\t\t"]);
 
 var _framework = require("../framework");
 
@@ -1730,14 +1728,13 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 var state = { items: ["Home", "About me"] };
 var template = function template(_ref) {
 	var items = _ref.items,
-	    title = _ref.title;
-	return _framework2.default.nav(_templateObject, _framework2.default.className({ navbar: true, "navbar-default": true }), _framework2.default.div(_templateObject2, _framework2.default.className({ "container-fluid": true }), _framework2.default.div(_templateObject3, _framework2.default.className({ "navbar-header": true }), _framework2.default.a(_templateObject4, _framework2.default.className({ "navbar-brand": true }), title)), _framework2.default.div(_templateObject5, _framework2.default.className({ collapse: true, "navbar-collapse": true }), _framework2.default.ul(_templateObject4, _framework2.default.className({ nav: true, "navbar-nav": true }), _framework2.default.forEach(items, function (item) {
-		return _framework2.default.li(_templateObject6, _framework2.default.a(_templateObject7, item));
-	})), _framework2.default.form(_templateObject8, _framework2.default.className({ "navbar-form": true, "navbar-left": true }), (0, _input.Input)()))));
+	    title = _ref.title,
+	    handleSearch = _ref.handleSearch;
+	return _framework2.default.nav(_templateObject, _framework2.default.className({ navbar: true, "navbar-default": true }), _framework2.default.div(_templateObject2, _framework2.default.className({ "container-fluid": true }), _framework2.default.div(_templateObject3, _framework2.default.className({ "navbar-header": true }), _framework2.default.a(_templateObject4, _framework2.default.className({ "navbar-brand": true }), title)), _framework2.default.div(_templateObject5, _framework2.default.className({ collapse: true, "navbar-collapse": true }), _framework2.default.ul(_templateObject6, _framework2.default.className({ nav: true, "navbar-nav": true })), _framework2.default.form(_templateObject7, _framework2.default.className({ "navbar-form": true, "navbar-left": true }), (0, _input.Input)({ handleKeyUp: handleSearch })))));
 };
 
 var Navbar = exports.Navbar = _framework2.default.createComponent({ template: template, state: state });
-},{"../framework":8,"./input":30}],11:[function(require,module,exports) {
+},{"../framework":8,"./input":31}],11:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1770,7 +1767,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.List = undefined;
 
 var _templateObject = _taggedTemplateLiteral(["\n\t", "\n\t", "\n\t"], ["\n\t", "\n\t", "\n\t"]),
-    _templateObject2 = _taggedTemplateLiteral(["\n\t\t", "\n\t \t ", "", ""], ["\n\t\t", "\n\t \t ", "", ""]);
+    _templateObject2 = _taggedTemplateLiteral(["", "\n\t \t ", "", ""], ["", "\n\t \t ", "", ""]);
 
 var _framework = require("../framework");
 
@@ -1783,23 +1780,27 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 var ucFirst = function ucFirst(str) {
   return "" + str[0].toUpperCase() + str.slice(1);
 };
+var contains = function contains(text, filter) {
+  return filter ? text.toLowerCase().includes(filter.toLowerCase()) : true;
+};
 
 var template = function template(_ref) {
   var items = _ref.items,
-      selectItem = _ref.selectItem;
+      selectItem = _ref.selectItem,
+      criteria = _ref.criteria;
   return _framework2.default.div(_templateObject, _framework2.default.className({ "list-group": true }), _framework2.default.forEach(items, function (item) {
-    return _framework2.default.a(_templateObject2, _framework2.default.onClick(function () {
+    return contains(item.name, criteria) ? _framework2.default.a(_templateObject2, _framework2.default.onClick(function () {
       return selectItem(item);
     }), _framework2.default.className({
       "list-group-item": true,
       "list-group-item-action": true,
       active: item.selected
-    }), ucFirst(item.name));
+    }), ucFirst(item.name)) : "";
   }));
 };
 
 var List = exports.List = _framework2.default.createComponent({ template: template });
-},{"../framework":8}],73:[function(require,module,exports) {
+},{"../framework":8}],30:[function(require,module,exports) {
 module.exports="/loader.7b1f643d.gif";
 },{}],13:[function(require,module,exports) {
 "use strict";
@@ -1829,7 +1830,7 @@ var template = function template() {
 };
 
 var Loader = exports.Loader = _framework2.default.createComponent({ template: template });
-},{"../framework":8,"./loader.gif":73}],6:[function(require,module,exports) {
+},{"../framework":8,"./loader.gif":30}],6:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1862,7 +1863,8 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 var state = {
   appName: "Pokeworld",
   pageTitle: "Research results",
-  resultSet: []
+  resultSet: [],
+  filter: ""
 };
 
 var methods = {
@@ -1878,30 +1880,101 @@ var methods = {
         return i.name === item.name ? _extends({}, i, { selected: !i.selected }) : _extends({}, i, { selected: false });
       })
     });
+  },
+  filter: function filter(state, _filter) {
+    return _extends({}, state, { filter: _filter });
   }
 };
 
 var onLoad = function onLoad(_ref) {
   var changeResultSet = _ref.changeResultSet;
-  return fetch("https://pokeapi.co/api/v2/pokemon/").then(function (res) {
-    return res.json();
-  }).then(function (_ref2) {
-    var results = _ref2.results;
-    return results;
-  }).then(function (res) {
+  return Promise.resolve([{
+    url: "https://pokeapi.co/api/v2/pokemon/1/",
+    name: "bulbasaur"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/2/",
+    name: "ivysaur"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/3/",
+    name: "venusaur"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/4/",
+    name: "charmander"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/5/",
+    name: "charmeleon"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/6/",
+    name: "charizard"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/7/",
+    name: "squirtle"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/8/",
+    name: "wartortle"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/9/",
+    name: "blastoise"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/10/",
+    name: "caterpie"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/11/",
+    name: "metapod"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/12/",
+    name: "butterfree"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/13/",
+    name: "weedle"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/14/",
+    name: "kakuna"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/15/",
+    name: "beedrill"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/16/",
+    name: "pidgey"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/17/",
+    name: "pidgeotto"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/18/",
+    name: "pidgeot"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/19/",
+    name: "rattata"
+  }, {
+    url: "https://pokeapi.co/api/v2/pokemon/20/",
+    name: "raticate"
+  }]).then(function (res) {
     return changeResultSet(res.map(function (item) {
       return _extends({}, item, { selected: false });
     }));
   });
 };
 
-var template = function template(_ref3) {
-  var appName = _ref3.appName,
-      pageTitle = _ref3.pageTitle,
-      resultSet = _ref3.resultSet,
-      methods = _ref3.methods;
+// const onLoad = ({ changeResultSet }) =>
+//   fetch("https://pokeapi.co/api/v2/pokemon/")
+//     .then(res => res.json())
+//     .then(({ results }) => results)
+//     .then(res =>
+//       changeResultSet(res.map(item => ({ ...item, selected: false })))
+//     );
 
-  return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" })), resultSet.length ? (0, _list.List)({ items: resultSet, selectItem: methods.selectItem }) : (0, _loader.Loader)()));
+var template = function template(_ref2) {
+  var appName = _ref2.appName,
+      pageTitle = _ref2.pageTitle,
+      resultSet = _ref2.resultSet,
+      filter = _ref2.filter,
+      methods = _ref2.methods;
+
+  return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName, handleSearch: methods.filter }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" })), resultSet.length ? (0, _list.List)({
+    items: resultSet,
+    selectItem: methods.selectItem,
+    criteria: filter
+  }) : (0, _loader.Loader)()));
 };
 
 var App = exports.App = _framework2.default.createComponent({ template: template, state: state, methods: methods, onLoad: onLoad });
@@ -1917,7 +1990,7 @@ var _app = require("./src/app");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _framework2.default.initApplication("#app", (0, _app.App)());
-},{"./framework":8,"./src/app":6}],74:[function(require,module,exports) {
+},{"./framework":8,"./src/app":6}],72:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -1947,7 +2020,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '64301' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '52871' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -2086,5 +2159,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[74,4])
+},{}]},{},[72,4])
 //# sourceMappingURL=/framework-examples.d9c2299e.map
