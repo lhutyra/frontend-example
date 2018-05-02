@@ -1608,6 +1608,8 @@ var _node = require("../core/node");
 
 var _element = require("./element.reducer");
 
+var _snabbdom = require("snabbdom");
+
 var createElement = function createElement(elementName) {
   return function (strings) {
     for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -1635,7 +1637,7 @@ var ul = exports.ul = createElement("ul");
 var li = exports.li = createElement("li");
 var form = exports.form = createElement("form");
 var input = exports.input = createElement("input");
-},{"../core/node":38,"./element.reducer":39}],8:[function(require,module,exports) {
+},{"../core/node":38,"./element.reducer":39,"snabbdom":42}],8:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1712,7 +1714,7 @@ var _templateObject = _taggedTemplateLiteral(["\n\t", "\n\t", "\n"], ["\n\t", "\
     _templateObject2 = _taggedTemplateLiteral(["", "\n\t\t\t", "\n\t\t\t", "\n\t"], ["", "\n\t\t\t", "\n\t\t\t", "\n\t"]),
     _templateObject3 = _taggedTemplateLiteral(["", "\n\t\t\t\t", "\n\t\t\t"], ["", "\n\t\t\t\t", "\n\t\t\t"]),
     _templateObject4 = _taggedTemplateLiteral(["", "\n\t\t\t\t\t", "\n\t\t\t\t"], ["", "\n\t\t\t\t\t", "\n\t\t\t\t"]),
-    _templateObject5 = _taggedTemplateLiteral(["", "\n\t\t\t\t", "\n\t\t"], ["", "\n\t\t\t\t", "\n\t\t"]),
+    _templateObject5 = _taggedTemplateLiteral(["\n\t\t\t\t", "\n\t\t"], ["\n\t\t\t\t", "\n\t\t"]),
     _templateObject6 = _taggedTemplateLiteral(["", "\n\t\t\t\t\t", "\n\t\t\t"], ["", "\n\t\t\t\t\t", "\n\t\t\t"]);
 
 var _framework = require("../framework");
@@ -1730,7 +1732,7 @@ var template = function template(_ref) {
 	var items = _ref.items,
 	    title = _ref.title,
 	    handleSearch = _ref.handleSearch;
-	return _framework2.default.nav(_templateObject, _framework2.default.className({ navbar: true, "navbar-light": true, "bg-light": true }), _framework2.default.div(_templateObject2, _framework2.default.className({ "container-fluid": true }), _framework2.default.div(_templateObject3, _framework2.default.className({ "navbar-header": true }), _framework2.default.a(_templateObject4, _framework2.default.className({ "navbar-brand": true }), title)), _framework2.default.div(_templateObject5, _framework2.default.className({ collapse: true, "navbar-collapse": true }), _framework2.default.form(_templateObject6, _framework2.default.className({ "form-inline": true, "my-2": true, "my-lg-0": true }), (0, _input.Input)({ handleKeyUp: handleSearch })))));
+	return _framework2.default.nav(_templateObject, _framework2.default.className({ navbar: true, "navbar-light": true, "bg-light": true }), _framework2.default.div(_templateObject2, _framework2.default.className({ "container-fluid": true }), _framework2.default.div(_templateObject3, _framework2.default.className({ "navbar-header": true }), _framework2.default.a(_templateObject4, _framework2.default.className({ "navbar-brand": true }), title)), _framework2.default.div(_templateObject5, _framework2.default.form(_templateObject6, _framework2.default.className({ "form-inline": true, "my-2": true, "my-lg-0": true }), (0, _input.Input)({ handleKeyUp: handleSearch })))));
 };
 
 var Navbar = exports.Navbar = _framework2.default.createComponent({ template: template, state: state });
@@ -1809,12 +1811,12 @@ module.exports="/loader.7b1f643d.gif";
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 exports.Loader = undefined;
 
 var _templateObject = _taggedTemplateLiteral(["\n\t", "\n\t", "\n"], ["\n\t", "\n\t", "\n"]),
-    _templateObject2 = _taggedTemplateLiteral(["\n\t\t", "\n\t\t", "\n\t"], ["\n\t\t", "\n\t\t", "\n\t"]);
+    _templateObject2 = _taggedTemplateLiteral(["\n\t\t", "\n\t\t", "\n\t\t", "\n\t"], ["\n\t\t", "\n\t\t", "\n\t\t", "\n\t"]);
 
 var _framework = require("../framework");
 
@@ -1828,8 +1830,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-var template = function template() {
-	return _framework2.default.div(_templateObject, _framework2.default.className({ "text-center": true }), _framework2.default.img(_templateObject2, _framework2.default.props({ src: _loader2.default }), _framework2.default.className({ rounded: true, "mx-auto": true, "d-block": true })));
+var sizes = {
+  medium: {
+    height: "250px"
+  },
+  small: {
+    height: "128px"
+  }
+};
+
+var template = function template(_ref) {
+  var _ref$size = _ref.size,
+      size = _ref$size === undefined ? "medium" : _ref$size;
+  return _framework2.default.div(_templateObject, _framework2.default.className({ "text-center": true }), _framework2.default.img(_templateObject2, _framework2.default.props({ src: _loader2.default }), _framework2.default.style(sizes[size]), _framework2.default.className({ rounded: true, "mx-auto": true, "d-block": true })));
 };
 
 var Loader = exports.Loader = _framework2.default.createComponent({ template: template });
@@ -1841,14 +1854,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Card = undefined;
 
-var _templateObject = _taggedTemplateLiteral(["\n\t", "\n\t", "\n\t", "\n"], ["\n\t", "\n\t", "\n\t", "\n"]),
-    _templateObject2 = _taggedTemplateLiteral(["\n\t\t", "\n\t\t", "\n\t\t", "\n\t"], ["\n\t\t", "\n\t\t", "\n\t\t", "\n\t"]),
-    _templateObject3 = _taggedTemplateLiteral(["\n\t\t", "\n\t\t", "\n\t"], ["\n\t\t", "\n\t\t", "\n\t"]),
+var _templateObject = _taggedTemplateLiteral(["\n\t", "\n\t\n\t", "\n\t", "\n"], ["\n\t", "\n\t\n\t", "\n\t", "\n"]),
+    _templateObject2 = _taggedTemplateLiteral(["\n\t\t", "\n\t\t", "\n\t"], ["\n\t\t", "\n\t\t", "\n\t"]),
+    _templateObject3 = _taggedTemplateLiteral(["\n\t\t\t", "\n\t\t\t", "\n\t\t\t", "\n\t\t"], ["\n\t\t\t", "\n\t\t\t", "\n\t\t\t", "\n\t\t"]),
     _templateObject4 = _taggedTemplateLiteral(["\n\t\t\t", "\n\t\t\t", "\n\t\t"], ["\n\t\t\t", "\n\t\t\t", "\n\t\t"]);
 
 var _framework = require("../framework");
 
 var _framework2 = _interopRequireDefault(_framework);
+
+var _loader = require("./loader");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1857,11 +1872,11 @@ function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defi
 var template = function template(_ref) {
 	var title = _ref.title,
 	    image = _ref.image;
-	return _framework2.default.div(_templateObject, _framework2.default.className({ card: true }), _framework2.default.img(_templateObject2, _framework2.default.className({ "card-img-top": true }), _framework2.default.style({ backgroundColor: "#efefef" }), _framework2.default.props({ src: image })), _framework2.default.div(_templateObject3, _framework2.default.className({ "card-body": true }), _framework2.default.h5(_templateObject4, _framework2.default.className({ "card-title": true }), title)));
+	return _framework2.default.div(_templateObject, _framework2.default.className({ card: true }), _framework2.default.div(_templateObject2, _framework2.default.style({ backgroundColor: "#efefef", textAlign: "center" }), image ? _framework2.default.img(_templateObject3, _framework2.default.className({ "card-img-top": true }), _framework2.default.style({ height: "128px", width: "128px" }), _framework2.default.props({ src: image })) : (0, _loader.Loader)({ size: "small" })), _framework2.default.div(_templateObject2, _framework2.default.className({ "card-body": true }), _framework2.default.h5(_templateObject4, _framework2.default.className({ "card-title": true }), title)));
 };
 
 var Card = exports.Card = _framework2.default.createComponent({ template: template });
-},{"../framework":8}],6:[function(require,module,exports) {
+},{"../framework":8,"./loader":13}],6:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -1926,17 +1941,25 @@ var methods = {
   }
 };
 
+// const fetchDetails = ({ optimistSelectItem, setDetails }) => item => {
+//   optimistSelectItem(item);
+//   return Promise.resolve({
+//     name: item.name,
+//     weight: 69,
+//     sprites: {
+//       front_default:
+//         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
+//     }
+//   }).then(setDetails);
+// };
+
 var fetchDetails = function fetchDetails(_ref) {
   var optimistSelectItem = _ref.optimistSelectItem,
       setDetails = _ref.setDetails;
   return function (item) {
     optimistSelectItem(item);
-    return Promise.resolve({
-      name: item.name,
-      weight: 69,
-      sprites: {
-        front_default: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png"
-      }
+    return fetch("https://pokeapi.co/api/v2/pokemon/" + item.name.toLowerCase()).then(function (res) {
+      return res.json();
     }).then(setDetails);
   };
 };
@@ -1945,103 +1968,131 @@ var ucFirst = function ucFirst(str) {
   return "" + str[0].toUpperCase() + str.slice(1);
 };
 
+// const onLoad = ({ changeResultSet }) =>
+//   Promise.resolve([
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/1/",
+//       name: "bulbasaur"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/2/",
+//       name: "ivysaur"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/3/",
+//       name: "venusaur"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/4/",
+//       name: "charmander"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/5/",
+//       name: "charmeleon"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/6/",
+//       name: "charizard"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/7/",
+//       name: "squirtle"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/8/",
+//       name: "wartortle"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/9/",
+//       name: "blastoise"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/10/",
+//       name: "caterpie"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/11/",
+//       name: "metapod"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/12/",
+//       name: "butterfree"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/13/",
+//       name: "weedle"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/14/",
+//       name: "kakuna"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/15/",
+//       name: "beedrill"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/16/",
+//       name: "pidgey"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/17/",
+//       name: "pidgeotto"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/18/",
+//       name: "pidgeot"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/19/",
+//       name: "rattata"
+//     },
+//     {
+//       url: "https://pokeapi.co/api/v2/pokemon/20/",
+//       name: "raticate"
+//     }
+//   ]).then(res =>
+//     changeResultSet(
+//       res.map(item => ({ ...item, name: ucFirst(item.name), selected: false }))
+//     )
+//   );
+
 var onLoad = function onLoad(_ref2) {
   var changeResultSet = _ref2.changeResultSet;
-  return Promise.resolve([{
-    url: "https://pokeapi.co/api/v2/pokemon/1/",
-    name: "bulbasaur"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/2/",
-    name: "ivysaur"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/3/",
-    name: "venusaur"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/4/",
-    name: "charmander"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/5/",
-    name: "charmeleon"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/6/",
-    name: "charizard"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/7/",
-    name: "squirtle"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/8/",
-    name: "wartortle"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/9/",
-    name: "blastoise"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/10/",
-    name: "caterpie"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/11/",
-    name: "metapod"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/12/",
-    name: "butterfree"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/13/",
-    name: "weedle"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/14/",
-    name: "kakuna"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/15/",
-    name: "beedrill"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/16/",
-    name: "pidgey"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/17/",
-    name: "pidgeotto"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/18/",
-    name: "pidgeot"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/19/",
-    name: "rattata"
-  }, {
-    url: "https://pokeapi.co/api/v2/pokemon/20/",
-    name: "raticate"
-  }]).then(function (res) {
+  return fetch("https://pokeapi.co/api/v2/pokemon/").then(function (res) {
+    return res.json();
+  }).then(function (_ref3) {
+    var results = _ref3.results;
+    return results;
+  }).then(function (res) {
     return changeResultSet(res.map(function (item) {
-      return _extends({}, item, { name: ucFirst(item.name), selected: false });
+      return _extends({}, item, {
+        name: ucFirst(item.name),
+        selected: false
+      });
     }));
   });
 };
 
-// const onLoad = ({ changeResultSet }) =>
-//   fetch("https://pokeapi.co/api/v2/pokemon/")
-//     .then(res => res.json())
-//     .then(({ results }) => results)
-//     .then(res =>
-//       changeResultSet(res.map(item => ({ ...item, selected: false })))
-//     );
-
-var template = function template(_ref3) {
-  var appName = _ref3.appName,
-      pageTitle = _ref3.pageTitle,
-      resultSet = _ref3.resultSet,
-      selectedItem = _ref3.selectedItem,
-      filter = _ref3.filter,
-      methods = _ref3.methods;
+var template = function template(_ref4) {
+  var appName = _ref4.appName,
+      pageTitle = _ref4.pageTitle,
+      resultSet = _ref4.resultSet,
+      selectedItem = _ref4.selectedItem,
+      filter = _ref4.filter,
+      methods = _ref4.methods;
 
   return _framework2.default.div(_templateObject, (0, _navbar.Navbar)({ title: appName, handleSearch: methods.filter }), _framework2.default.div(_templateObject2, _framework2.default.className({ container: true }), _framework2.default.h2(_templateObject3, pageTitle, (0, _label.Label)({ value: resultSet.length + " found" })), resultSet.length ? _framework2.default.div(_templateObject4, _framework2.default.className({ row: true }), _framework2.default.div(_templateObject5, _framework2.default.className({
-    "col-10": !!selectedItem.details.name,
-    "col-12": !!!selectedItem.details.name
+    "col-10": !!selectedItem.item.name,
+    "col-12": !!!selectedItem.item.name
   }), (0, _list.List)({
     items: resultSet,
     selectItem: fetchDetails(methods),
     criteria: filter,
     selectedItem: selectedItem
-  })), selectedItem.details.name ? _framework2.default.div(_templateObject6, _framework2.default.className({ "col-2": true }), (0, _card.Card)({
-    title: selectedItem.details.name,
-    image: selectedItem.details.sprites.front_default
-  })) : "") : (0, _loader.Loader)()));
+  })), selectedItem.item.name && _framework2.default.div(_templateObject6, _framework2.default.className({ "col-2": true }), (0, _card.Card)({
+    title: selectedItem.item.name,
+    image: selectedItem.details.sprites ? selectedItem.details.sprites.front_default : null
+  }))) : (0, _loader.Loader)()));
 };
 
 var App = exports.App = _framework2.default.createComponent({ template: template, state: state, methods: methods, onLoad: onLoad });
@@ -2057,7 +2108,7 @@ var _app = require("./src/app");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _framework2.default.initApplication("#app", (0, _app.App)());
-},{"./framework":8,"./src/app":6}],74:[function(require,module,exports) {
+},{"./framework":8,"./src/app":6}],76:[function(require,module,exports) {
 
 var OVERLAY_ID = '__parcel__error__overlay__';
 
@@ -2087,7 +2138,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '62393' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '50211' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -2226,5 +2277,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},[74,4])
+},{}]},{},[76,4])
 //# sourceMappingURL=/framework-examples.d9c2299e.map

@@ -1,5 +1,6 @@
 import { node } from "../core/node";
 import { initialElementState, elementReducer } from "./element.reducer";
+import { h } from "snabbdom";
 
 const createElement = elementName => (strings, ...args) => {
   const { props, children } = strings.reduce(

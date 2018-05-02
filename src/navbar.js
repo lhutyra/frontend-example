@@ -10,7 +10,7 @@ const template = ({ items, title, handleSearch }) => _.nav`
 					${title}
 				`}
 			`}
-			${_.div`${_.className({ collapse: true, "navbar-collapse": true })}
+			${_.div`
 				${_.form`${_.className({ "form-inline": true, "my-2": true, "my-lg-0": true })}
 					${Input({ handleKeyUp: handleSearch })}
 			`}
